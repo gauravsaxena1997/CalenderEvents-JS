@@ -1,0 +1,35 @@
+Signup:
+create an array in localstorage, user
+when new user is created get the json change in object and push new user details.
+
+
+users = [ { name:'',username:'',password:'' } , { name:'',username:'',password:'' }    ]
+var users = JSON.parse(localStorage.getItem('users'));
+
+var newUser = {
+    name:'',
+    username:'',
+    password:''
+};
+users.push(newUSer);
+localstorage.setitem('users',JSON.strigify(users));
+
+Signin:
+var users = JSON.parse(localStorage.getItem('users'));
+loop {
+    userinput==users[i]
+}
+
+Dashboard:
+username = users.username;
+To store user data make an array of objects with username as an key:
+gurvsxen = [ 
+    { date:
+      notes: {
+          'str', 'str'
+      }
+    }
+]
+
+Calendar:
+Each date should be a link which contain the information of corresponding notes.
