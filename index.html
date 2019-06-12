@@ -15,7 +15,7 @@
 <!-- Vedio Overlay -->
 <div class="video-overlay"></div>
 <video id="myVideo" autoplay muted loop>
-    <source src="video/background5.mp4" type="video/mp4" />
+    <source src="video/background.mp4" type="video/mp4" />
 </video>
 <!-- End Video Overlay -->
 
@@ -31,24 +31,24 @@
     <div class="col-md-6 h-100">
     <div class="card">
         <h1 class="card-header blue-gradient"><i class="fas fa-key"></i> Sign in</h1>
-        <form action="" class="card-body">
+        <form onsubmit="signin(); return false" class="card-body">
             <div class="md-form">
                 <i class="fas fa-envelope prefix"></i>
-                <input type="text" id="email" class="form-control">
+                <input type="text" id="email" class="form-control" required>
                 <label for="email">E-mail address</label>
             </div>
             <div class="md-form">
                 <i class="fas fa-lock prefix"></i>
-                <input type="password" id="password" class="form-control">
+                <input type="password" id="password" class="form-control" required>
                 <label for="password">Type your password</label>
             </div><br><br>
             <button class="btn blue-gradient btn-block text-light">Sign in</button>
         </form>
     </div>
     
-    <div id="signup-div" class="p-2">
+    <div id="signup-div" class="p-4">
         <h4>New User ?</h4>
-        <a href="" class="btn btn-default blue-gradient" data-toggle="modal" data-target="#modalRegisterForm">
+        <a href=""  data-toggle="modal" data-target="#modalRegisterForm">
         Sign up </a>
     </div>
     </div>
@@ -58,6 +58,8 @@
     </div>
 </div>
 </div>
+
+
 
 <!-- Modal for sign up #modalRegisterForm -->
 <div class="modal fade" id="modalRegisterForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
@@ -112,9 +114,7 @@
     </form></div>
   </div>
 </div>
-<!-- Modal for sign up -->
-
-
+<!-- End -->
 
 
 <!--Modal for success account creation-->
@@ -141,9 +141,23 @@
     </div>
   </div>
 </div>
-<!--Modal for success account creation-->
+<!--End-->
 
-
+<!--Modal for invalid credentials-->
+<div class="modal fade top" id="invalidModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true" data-backdrop="true">
+  <div class="modal-dialog modal-frame modal-top modal-notify modal-info" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="row d-flex justify-content-center align-items-center">
+          <div><i class="fas fa-times text-danger fa-4x mb-3 animated rotateIn"></i></div>
+          <p class="pl-5" id="invalid-credentials">Invalid Email or password.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--End-->
 
 
 

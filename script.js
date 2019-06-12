@@ -1,4 +1,4 @@
-// Sign up validations--------------------------------------------
+// Sign up--------------------------------------------------------
 var names = document.getElementById('signup-name');
 var email = document.getElementById('signup-email');
 var password = document.getElementById('signup-password');
@@ -117,3 +117,49 @@ function storeCredentials(){
     $('#modalRegisterForm').modal('hide');
     $('#signupSuccess').modal('show');
 };
+
+// Sign in --------------------------------------------------------
+var signinEmail = document.getElementById('email');
+var signinPassword = document.getElementById('password');
+let userList = JSON.parse(localStorage.getItem('users'));
+var credentials = false;
+
+
+signinPassword.addEventListener('keyup',function(){
+    userList.forEach(function(user){
+        if (signinEmail.value == user.email && signinPassword.value == user.password){
+            console.log('User exists'); 
+            credentials = true;  
+            console.log(credentials);
+            
+        } else {
+            credentials = false;
+            console.log(credentials);
+        }
+    })
+});
+signinEmail.addEventListener('keyup',function(){
+    userList.forEach(function(user){
+        if (signinEmail.value == user.email && signinPassword.value == user.password){
+            console.log('User exists'); 
+            credentials = true;  
+            console.log(credentials);
+            
+        } else {
+            credentials = false;
+            console.log(credentials);
+        }
+    })
+});
+
+function signin(){
+    if (credentials == true){
+        alert('Valid');
+    } else {
+        $('#invalidModal').modal('show');
+    }
+}
+
+
+
+
