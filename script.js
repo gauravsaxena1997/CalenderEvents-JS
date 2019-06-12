@@ -121,7 +121,7 @@ function storeCredentials(){
 // Sign in --------------------------------------------------------
 var signinEmail = document.getElementById('email');
 var signinPassword = document.getElementById('password');
-let userList = JSON.parse(localStorage.getItem('users'));
+let userList = JSON.parse(localStorage.getItem('users')) || [] ;
 var credentials = false;
 
 
@@ -130,11 +130,8 @@ signinPassword.addEventListener('keyup',function(){
         if (signinEmail.value == user.email && signinPassword.value == user.password){
             console.log('User exists'); 
             credentials = true;  
-            console.log(credentials);
-            
         } else {
             credentials = false;
-            console.log(credentials);
         }
     })
 });
@@ -143,11 +140,8 @@ signinEmail.addEventListener('keyup',function(){
         if (signinEmail.value == user.email && signinPassword.value == user.password){
             console.log('User exists'); 
             credentials = true;  
-            console.log(credentials);
-            
         } else {
             credentials = false;
-            console.log(credentials);
         }
     })
 });
