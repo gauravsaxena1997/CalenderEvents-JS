@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Calendar Events</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+    <!-- Bootstrap core CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.2/css/mdb.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Nunito&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body> 
+<!-- Vedio Overlay -->
+<div class="video-overlay"></div>
+<video id="myVideo" autoplay muted loop>
+    <source src="video/background5.mp4" type="video/mp4" />
+</video>
+<!-- End Video Overlay -->
+
+<nav class="navbar navbar-dark primary-color">
+    <a class="navbar-brand" href="#">
+      <img src="img/calendar.png" height="30" class="d-inline-block align-top"
+        alt="calendar logo"> Calender Notes
+    </a>
+  </nav>
+
+<div class="container-fluid">
+<div class="row">
+    <div class="col-md-6 h-100">
+    <div class="card">
+        <h1 class="card-header blue-gradient"><i class="fas fa-key"></i> Sign in</h1>
+        <form action="" class="card-body">
+            <div class="md-form">
+                <i class="fas fa-envelope prefix"></i>
+                <input type="text" id="email" class="form-control">
+                <label for="email">E-mail address</label>
+            </div>
+            <div class="md-form">
+                <i class="fas fa-lock prefix"></i>
+                <input type="password" id="password" class="form-control">
+                <label for="password">Type your password</label>
+            </div><br><br>
+            <button class="btn blue-gradient btn-block text-light">Sign in</button>
+        </form>
+    </div>
+    
+    <div id="signup-div" class="p-2">
+        <h4>New User ?</h4>
+        <a href="" class="btn btn-default blue-gradient" data-toggle="modal" data-target="#modalRegisterForm">
+        Sign up </a>
+    </div>
+    </div>
+
+    <div class="col-md-6">
+        <img src="img/login.png" id="login-img" height="90%" alt="login">
+    </div>
+</div>
+</div>
+
+<!-- Modal for sign up -->
+<div class="modal fade" id="modalRegisterForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content"><form action="">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Sign up</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+            <i class="fas fa-user prefix grey-text"></i>
+            <input type="text" id="signup-name" class="form-control" required>
+            <label for="signup-name">Your name</label>
+        </div>
+        <div class="md-form mb-5">
+            <i class="fas fa-envelope prefix grey-text"></i>
+            <input type="email" id="signup-email" class="form-control" required>
+            <label for="signup-email">Your email</label>
+        </div>
+
+        <div class="md-form mb-4">
+            <i class="fas fa-lock prefix grey-text"></i>
+            <input type="password" id="signup-password" class="form-control"
+            onkeyup="valpass()" pattern="(?=.*\d)(?=.*[a-zA-Z])(?=.*[^a-z0-9A-Z]).{8,}" 
+            title="Must contain at least one number ,one letter,one special chracter and at least 8 or more characters" 
+            required>
+            <label for="signup-password">Your password</label>
+        </div>
+        <div id="message">
+            Password requires:
+            <ul>
+                <li id='num' class='invalid'><b>Atleast one number</b> <i class="far fa-check-circle" id="tick1"></i></li>
+                <li id='alpha' class='invalid'><b>Atleast one letter</b> <i class="far fa-check-circle" id="tick2"></i></li>
+                <li id='specialChar' class='invalid'><b>Atleast one special Character</b> <i class="far fa-check-circle" id="tick3"></i></li>
+                <li id='len' class='invalid'><b>Atleast 8 characters long</b> <i class="far fa-check-circle" id="tick4"></i></li>
+            </ul>  
+        </div>
+      
+    </div>
+      
+      <div class="modal-footer d-flex justify-content-center">
+        <input class="btn blue-gradient text-light btn-block" type="submit" value="Sign up">
+        <input class="btn blue-gradient text-light btn-block" type="reset" value="Reset">
+      </div>
+    
+        
+    </form></div>
+  </div>
+</div>
+<!-- Modal for sign up -->
+
+
+
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.2/js/mdb.min.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
