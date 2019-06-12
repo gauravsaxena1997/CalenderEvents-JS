@@ -1,4 +1,4 @@
-// Sign up--------------------------------------------------------
+// Declarations --------------------------------------------------
 var userList = JSON.parse(localStorage.getItem('users')) || [] ;
 var names = document.getElementById('signup-name');
 var email = document.getElementById('signup-email');
@@ -11,6 +11,15 @@ var tick1 = document.getElementById('tick1');
 var tick2 = document.getElementById('tick2');
 var tick3 = document.getElementById('tick3');
 var tick4 = document.getElementById('tick4');
+var signinEmail = document.getElementById('email');
+var signinPassword = document.getElementById('password');
+var credentials = false;
+var userDetails = {
+    name: '',
+    email: '',
+};
+
+// validation of password ------------------------------------------
 password.addEventListener('keyup',function(){
     // validate number
     var numPattern = /[0-9]/g;
@@ -52,7 +61,6 @@ password.addEventListener('keyup',function(){
     }
     
 });
-console.log(userList);
 
 // validation of email ---------------------------------------------
 email.addEventListener('blur',function(){
@@ -79,7 +87,6 @@ email.addEventListener('keyup',function(){
     }    
 });
 
-
 // validation of name ----------------------------------------------
 names.addEventListener('blur',function(){
     var nameformat = /^[a-zA-Z\s]*$/;
@@ -104,7 +111,6 @@ names.addEventListener('keyup',function(){
     }
 });
 
-
 // Store credentials ----------------------------------------------
 function storeCredentials(){
     let userList = JSON.parse(localStorage.getItem('users')) || [];
@@ -122,39 +128,39 @@ function storeCredentials(){
 };
 
 // Sign in --------------------------------------------------------
-var signinEmail = document.getElementById('email');
-var signinPassword = document.getElementById('password');
-var credentials = false;
-
 signinPassword.addEventListener('keyup',function(){
     userList.forEach(function(user){
         if (signinEmail.value == user.email && signinPassword.value == user.password){
-            console.log('User exists'); 
-            credentials = true;  
+            credentials = true;
+            this.userDetails.name = user.name;
+            this.userDetails.email = user.email;
+            console.log('Credentials are matched.'+this.userDetails);
+            sessionStorage.setItem("userDetails", JSON.stringify(userDetails));  
+              
         } else {
             credentials = false;
         }
     })
 });
 signinEmail.addEventListener('keyup',function(){
-    userList.forEach(function(user){
+    userList.forEach(function(user){        
         if (signinEmail.value == user.email && signinPassword.value == user.password){
-            console.log('User exists'); 
-            credentials = true;  
+            credentials = true;
+            this.userDetails.name = user.name;
+            this.userDetails.email = user.email;
+            console.log('Credentials are matched.'+this.userDetails);
+            sessionStorage.setItem("userDetails", JSON.stringify(userDetails));  
         } else {
             credentials = false;
         }
     })
 });
-
-function signin(){
+function signin() {
+    console.log(credentials);
+    
     if (credentials == true){
-        alert('Valid');
+        window.location.href = 'events.html';
     } else {
         $('#invalidModal').modal('show');
     }
 }
-
-
-
-
