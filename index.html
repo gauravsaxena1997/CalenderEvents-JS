@@ -53,17 +53,17 @@
     </div>
     </div>
 
-    <div class="col-md-6">
+    <div class="col-md-6 d-sm-none d-md-block">
         <img src="img/login.png" id="login-img" height="90%" alt="login">
     </div>
 </div>
 </div>
 
-<!-- Modal for sign up -->
+<!-- Modal for sign up #modalRegisterForm -->
 <div class="modal fade" id="modalRegisterForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
   aria-hidden="true">
   <div class="modal-dialog" role="document">
-    <div class="modal-content"><form action="">
+    <div class="modal-content"><form  onsubmit="storeCredentials(); return false">
       <div class="modal-header text-center">
         <h4 class="modal-title w-100 font-weight-bold">Sign up</h4>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -73,30 +73,31 @@
       <div class="modal-body mx-3">
         <div class="md-form mb-5">
             <i class="fas fa-user prefix grey-text"></i>
-            <input type="text" id="signup-name" class="form-control" required>
+            <input type="text" id="signup-name" class="form-control" pattern="^[a-zA-Z\s]*$" required>
             <label for="signup-name">Your name</label>
+            <div id="nameError" class="invalid"></div>
         </div>
         <div class="md-form mb-5">
             <i class="fas fa-envelope prefix grey-text"></i>
-            <input type="email" id="signup-email" class="form-control" required>
+            <input type="email" id="signup-email" class="form-control" 
+            pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"  required>
             <label for="signup-email">Your email</label>
+            <div id="emailError" class="invalid"></div>
         </div>
 
         <div class="md-form mb-4">
             <i class="fas fa-lock prefix grey-text"></i>
             <input type="password" id="signup-password" class="form-control"
-            onkeyup="valpass()" pattern="(?=.*\d)(?=.*[a-zA-Z])(?=.*[^a-z0-9A-Z]).{8,}" 
-            title="Must contain at least one number ,one letter,one special chracter and at least 8 or more characters" 
-            required>
+            pattern="(?=.*\d)(?=.*[a-zA-Z])(?=.*[^a-z0-9A-Z]).{8,}" required>
             <label for="signup-password">Your password</label>
         </div>
         <div id="message">
             Password requires:
             <ul>
-                <li id='num' class='invalid'><b>Atleast one number</b> <i class="far fa-check-circle" id="tick1"></i></li>
-                <li id='alpha' class='invalid'><b>Atleast one letter</b> <i class="far fa-check-circle" id="tick2"></i></li>
-                <li id='specialChar' class='invalid'><b>Atleast one special Character</b> <i class="far fa-check-circle" id="tick3"></i></li>
-                <li id='len' class='invalid'><b>Atleast 8 characters long</b> <i class="far fa-check-circle" id="tick4"></i></li>
+                <li id='num'><b>Atleast one number</b> <i class="far fa-check-circle" id="tick1"></i></li>
+                <li id='alpha'><b>Atleast one letter</b> <i class="far fa-check-circle" id="tick2"></i></li>
+                <li id='specialChar'><b>Atleast one special Character</b> <i class="far fa-check-circle" id="tick3"></i></li>
+                <li id='len'><b>Atleast 8 characters long</b> <i class="far fa-check-circle" id="tick4"></i></li>
             </ul>  
         </div>
       
@@ -116,10 +117,41 @@
 
 
 
+<!--Modal for success account creation-->
+<div class="modal fade" id="signupSuccess" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-notify modal-success" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <p class="heading lead">Success</p>
+
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true" class="white-text">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="text-center">
+          <i class="fas fa-check fa-4x mb-3 animated rotateIn"></i>
+          <p>Your account is created successfully.</p>
+        </div>
+      </div>
+      <div class="modal-footer justify-content-center">
+        <button type="button" class="btn btn-outline-success waves-effect" data-dismiss="modal">OK</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--Modal for success account creation-->
+
+
+
+
+
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.2/js/mdb.min.js"></script>
+<script src="shortcut.js"></script>
 <script src="script.js"></script>
 </body>
 </html>

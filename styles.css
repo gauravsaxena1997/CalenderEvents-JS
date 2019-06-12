@@ -39,7 +39,7 @@ body{
     background-color: white;
     width: 48%;
 }
-#message,#tick1,#tick2,#tick3,#tick4{
+#tick1,#tick2,#tick3,#tick4{
     display: none;
 }
 .invalid{
@@ -47,4 +47,7 @@ body{
 }
 .valid{
     color: green;
+}
+#message{
+    font-size: 12px;
 }
