@@ -1,4 +1,5 @@
 // Sign up--------------------------------------------------------
+var userList = JSON.parse(localStorage.getItem('users')) || [] ;
 var names = document.getElementById('signup-name');
 var email = document.getElementById('signup-email');
 var password = document.getElementById('signup-password');
@@ -51,6 +52,7 @@ password.addEventListener('keyup',function(){
     }
     
 });
+console.log(userList);
 
 // validation of email ---------------------------------------------
 email.addEventListener('blur',function(){
@@ -114,6 +116,7 @@ function storeCredentials(){
     userList.push(userObj);
     localStorage.setItem('users',JSON.stringify(userList));
     singupSuccessfull = true;
+    this.userList = JSON.parse(localStorage.getItem('users'));
     $('#modalRegisterForm').modal('hide');
     $('#signupSuccess').modal('show');
 };
@@ -121,9 +124,7 @@ function storeCredentials(){
 // Sign in --------------------------------------------------------
 var signinEmail = document.getElementById('email');
 var signinPassword = document.getElementById('password');
-let userList = JSON.parse(localStorage.getItem('users')) || [] ;
 var credentials = false;
-
 
 signinPassword.addEventListener('keyup',function(){
     userList.forEach(function(user){
