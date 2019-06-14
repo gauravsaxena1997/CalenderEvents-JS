@@ -26,6 +26,11 @@
     </a>
 
     <ul class="navbar-nav ml-auto nav-flex-icons">
+        <li class="nav-item" id="current">
+            <a class="nav-link waves-effect waves-light">
+                <i class="fab fa-google-plus-g"></i>
+            </a>
+        </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-333" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
@@ -47,18 +52,17 @@
             <table class="table table-bordered table-responsive-sm" id="calendar">
                 <thead>
                 <tr>
-                    <th>Sun</th>
-                    <th>Mon</th>
-                    <th>Tue</th>
-                    <th>Wed</th>
-                    <th>Thu</th>
-                    <th>Fri</th>
-                    <th>Sat</th>
+                    <th><b>Sun</b></th>
+                    <th><b>Mon</b></th>
+                    <th><b>Tue</b></th>
+                    <th><b>Wed</b></th>
+                    <th><b>Thu</b></th>
+                    <th><b>Fri</b></th>
+                    <th><b>Sat</b></th>
                 </tr>
                 </thead>
     
                 <tbody id="calendar-body">
-    
                 </tbody>
             </table>
             <div class="form-inline">
@@ -68,7 +72,7 @@
             <br/>
             <form class="form-inline">
                 <label class="lead mr-2 ml-2" for="month">Jump To: </label>
-                <select class="form-control col-sm-4" name="month" id="month" onchange="jump()">
+                <select class="form-control col-sm-4 browser-default custom-select" name="month" id="month" onchange="jump()">
                     <option value=0>Jan</option>
                     <option value=1>Feb</option>
                     <option value=2>Mar</option>
@@ -83,8 +87,7 @@
                     <option value=11>Dec</option>
                 </select>
     
-    
-                <label for="year"></label><select class="form-control col-sm-4" name="year" id="year" onchange="jump()">
+                <label for="year"></label><select class="form-control col-sm-4 browser-default custom-select" name="year" id="year" onchange="jump()">
                 <option value=2019>2019</option>
                 <option value=2020>2020</option>
                 <option value=2021>2021</option>

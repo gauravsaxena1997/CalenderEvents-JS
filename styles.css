@@ -54,3 +54,7 @@ body{
 #invalid-credentials{
     font-size: 40px
 }
+/* events------------------------------------------------ */
+tbody,thead{
+    text-align: center;
+}
