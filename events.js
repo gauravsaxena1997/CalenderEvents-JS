@@ -1,2 +1,3 @@
-var userDetails = JSON.parse(sessionStorage.getItem('userDeatils'));
-console.log(userDetails);
+var userDetails = JSON.parse(sessionStorage.getItem('userDetails'));
+document.getElementById('userName').innerHTML = 'Hello '+userDetails.name;
+

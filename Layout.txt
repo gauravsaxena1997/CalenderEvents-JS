@@ -33,3 +33,8 @@ gurvsxen = [
 
 Calendar:
 Each date should be a link which contain the information of corresponding notes.
+
+
+
+Pending:
+user must sign in.
