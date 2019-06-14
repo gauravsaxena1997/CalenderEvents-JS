@@ -48,21 +48,17 @@ notesCollection = [
             notes: [
                 'wehfbj' , 'wefwe', 'wefw' ]          
       ]  
-    },
-
-    { email: qwqwq@qwe.com,
-      details: [
-          { date: 01/01/2020, 
-            notes: [
-                'wehfbj' , 'wefwe', 'wefw' ]
-          }
-          { date: 01/01/2020, 
-            notes: [
-                'wehfbj' , 'wefwe', 'wefw' ]          
-      ]  
     }
-
 ];
+
+localStorage.getItem('notesCollection');
+notesCollection.forEach(funcion(collection){
+    if ( userDetails.email === collection.email ){
+        console.log(notesCollection.indexOf(collection))
+    }
+})
+
+
 
 notesObj.email = email of user;              (string)
 notesCollection.details.date = date;        (string)

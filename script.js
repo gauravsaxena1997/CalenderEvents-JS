@@ -137,8 +137,6 @@ signinPassword.addEventListener('keyup',function(){
             console.log('Credentials are matched.'+this.userDetails);
             sessionStorage.setItem("userDetails", JSON.stringify(userDetails));  
               
-        } else {
-            credentials = false;
         }
     })
 });
@@ -150,8 +148,6 @@ signinEmail.addEventListener('keyup',function(){
             this.userDetails.email = user.email;
             console.log('Credentials are matched.'+this.userDetails);
             sessionStorage.setItem("userDetails", JSON.stringify(userDetails));  
-        } else {
-            credentials = false;
         }
     })
 });

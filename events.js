@@ -1,12 +1,22 @@
+// user details from localstorage-----------
 var userDetails = JSON.parse(sessionStorage.getItem('userDetails'));
 document.getElementById('userName').innerHTML = 'Hello '+userDetails.name;
-// notesCollection = JSON.parse(localStorage.getItem('notesCollection'));
-// var userNotes = null;
-// notesCollection.forEach(function(collection){
-//     if ( userDetails.email == collection.email ){
-//         userNotes = collection;
-//     }
-// });
+
+// use notes details from localstorage------
+var notesCollection = JSON.parse(localStorage.getItem('notesCollection'));
+var indexLocation = null;
+notesCollection.forEach(function(collection){
+    if ( userDetails.email === collection.email ){
+        indexLocation = notesCollection.indexOf(collection);
+    }
+});
+
+// for testing (getting user notes details)--
+Object.keys(localStorage).forEach(function(key){
+    console.log(localStorage.getItem(key));
+ });
+
+var dateAndNotes = null;
 let today = new Date();
 let currentMonth = today.getMonth();
 let currentYear = today.getFullYear();
@@ -89,17 +99,37 @@ let addNote=()=>{
 };
 
 let notesOfTheDay=(id)=>{
-    
-    // var newNote = {
-    //     date: id,
-    //     notes: 'this is note 2.',    
-    // };
-    // userDetails.details.push(newNote);
-    // localStorage.setItem('notesCollection',JSON.stringify(notesCollection));
-    // console.log(userNotes);
-    // console.log(userNotes.details[0].date);
+    if (indexLocation!=null){
+    notesCollection[indexLocation].details.forEach(function(element){
+    document.getElementById('existedNotes').innerHTML = '';    
+    if ( id == element.date ){
+            dateAndNotes = element;
+        } else {
+            dateAndNotes = null;
+        }
+    });
+}
+    if (dateAndNotes){
+    var notes = '<ul>';
+    for ( let i =0; i<dateAndNotes.notes.length; i++ ){
+        notes+= '<li>'+ dateAndNotes.notes[i]  +'</li>';
+    }
+    notes+= '</ul>';
+    document.getElementById('existedNotes').innerHTML = notes;    
+}
 
-    $('#addEvent').modal('show');
-    document.getElementById('eventTitle').innerHTML='Notes of '+id;
-    
+$('#addEvent').modal('show');
+document.getElementById('eventTitle').innerHTML='Notes of '+id;
 };
+
+
+
+    // var newNote =   { email: userDetails.email,
+    //       details: [
+    //           { date: id, 
+    //             notes: [ 'wefewee' , 'fffffffwefwe', 'eeeeeeewefw' ]
+    //           }         
+    //       ]  
+    // };
+    // notesCollection.push(newNote);
+    // localStorage.setItem('notesCollection',JSON.stringify(notesCollection));
