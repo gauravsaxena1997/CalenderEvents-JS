@@ -1,6 +1,12 @@
 var userDetails = JSON.parse(sessionStorage.getItem('userDetails'));
 document.getElementById('userName').innerHTML = 'Hello '+userDetails.name;
-
+// notesCollection = JSON.parse(localStorage.getItem('notesCollection'));
+// var userNotes = null;
+// notesCollection.forEach(function(collection){
+//     if ( userDetails.email == collection.email ){
+//         userNotes = collection;
+//     }
+// });
 let today = new Date();
 let currentMonth = today.getMonth();
 let currentYear = today.getFullYear();
@@ -63,7 +69,7 @@ function showCalendar(month, year) {
             else {
                 let cell = document.createElement("td");
                 cell.setAttribute('id',date+'-'+month+'-'+year);
-                cell.setAttribute('onclick','addEvent()');
+                cell.setAttribute('onclick','notesOfTheDay(this.id)');
                 let cellText = document.createTextNode(date);
                 if (date === today.getDate() && year === today.getFullYear() && month === today.getMonth()) {
                     cell.classList.add("blue-gradient","text-light");
@@ -77,3 +83,23 @@ function showCalendar(month, year) {
     }
 }
 
+
+let addNote=()=>{
+
+};
+
+let notesOfTheDay=(id)=>{
+    
+    // var newNote = {
+    //     date: id,
+    //     notes: 'this is note 2.',    
+    // };
+    // userDetails.details.push(newNote);
+    // localStorage.setItem('notesCollection',JSON.stringify(notesCollection));
+    // console.log(userNotes);
+    // console.log(userNotes.details[0].date);
+
+    $('#addEvent').modal('show');
+    document.getElementById('eventTitle').innerHTML='Notes of '+id;
+    
+};
