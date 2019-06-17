@@ -3,22 +3,30 @@ var userDetails = JSON.parse(sessionStorage.getItem('userDetails'));
 document.getElementById('userName').innerHTML = 'Hello '+userDetails.name;
 
 // use notes details from localstorage------
-var notesCollection = JSON.parse(localStorage.getItem('notesCollection'));
-var indexLocation = null;
+var notesCollection = JSON.parse(localStorage.getItem('notesCollection')) || [];
+var indexLocation = null, elementId =null, indexOfCurrentId =null, dateAndNotes = null;
 notesCollection.forEach(function(collection){
     if ( userDetails.email === collection.email ){
         indexLocation = notesCollection.indexOf(collection);
     }
 });
-
-var elementId =null, indexOfCurrentId =null;
+if (indexLocation===null){
+    var newUserNotes = {
+        email: userDetails.email,
+        details: []
+    }
+    notesCollection.push(newUserNotes);
+    localStorage.setItem('notesCollection',JSON.stringify(notesCollection));
+    notesCollection = JSON.parse(localStorage.getItem('notesCollection'));
+    indexLocation = notesCollection.length-1;
+}
+console.log(indexLocation);
 
 // for testing (getting user notes details)--
 Object.keys(localStorage).forEach(function(key){
     console.log(localStorage.getItem(key));
  });
 
-var dateAndNotes = null;
 let today = new Date();
 let currentMonth = today.getMonth();
 let currentYear = today.getFullYear();
@@ -98,40 +106,54 @@ function showCalendar(month, year) {
 
 document.getElementById('addNote').addEventListener('click',function(){
     var details = notesCollection[indexLocation].details;
+    var newEntry = false;
     for(let i=0; i<details.length;i++){
         if (elementId == details[i].date){
             indexOfCurrentId = i;
+            break;
         }
     }
-    details[indexOfCurrentId].notes.push(document.getElementById('note').value);
+    if(indexOfCurrentId === null){
+        newEntry = true;
+        var pushDetails = {
+            date: elementId,
+            notes: [ document.getElementById('note').value ]
+        };
+        notesCollection[indexLocation].details.push(pushDetails);
+    } 
+    if (!newEntry) details[indexOfCurrentId].notes.push(document.getElementById('note').value);
     localStorage.setItem('notesCollection',JSON.stringify(notesCollection));
     notesCollection = JSON.parse(localStorage.getItem('notesCollection'));
     indexOfCurrentId=null;
+    notesOfTheDay(elementId);
+    document.getElementById('note').value='';
 });
 
 let notesOfTheDay=(id)=>{
     elementId = id;
+    dateAndNotes = null;
+    document.getElementById('eventTitle').innerHTML='Notes of '+elementId;
     if (indexLocation!=null){
-        document.getElementById('existedNotes').innerHTML = '';    
-        notesCollection[indexLocation].details.forEach(function(element){
-    if ( id == element.date ){
-            dateAndNotes = element;
-        } else {
-            dateAndNotes = null;
+        var details = notesCollection[indexLocation].details;
+        for(let i=0;i<details.length;i++){
+            if ( elementId == details[i].date ){
+                dateAndNotes = details[i];
+                break;
+            }
         }
-    });
-}
-    if (dateAndNotes){
-    var notes = '<ul>';
-    for ( let i =0; i<dateAndNotes.notes.length; i++ ){
-        notes+= '<li>'+ dateAndNotes.notes[i]  +'</li>';
+        if (dateAndNotes){
+            var notes = '<ul>';
+            for ( let i =0; i<dateAndNotes.notes.length; i++ ){
+                notes+= '<li>'+ dateAndNotes.notes[i]  +'</li>';
+            }
+            notes+= '</ul>';
+            document.getElementById('existedNotes').innerHTML = notes;
+        }   else {
+            document.getElementById('existedNotes').innerHTML = '';
+        }
     }
-    notes+= '</ul>';
-    document.getElementById('existedNotes').innerHTML = notes;    
-}
 
-$('#addEvent').modal('show');
-document.getElementById('eventTitle').innerHTML='Notes of '+id;
+    $('#addEvent').modal('show');
 };
 
 

@@ -117,13 +117,15 @@
     <div class="modal-body row">
         <div class="md-form col-6">
             <i class="far fa-clipboard prefix"></i>
-            <input type="text" id="note" class="form-control">
+            <input type="text" id="note" class="form-control" required>
             <label for="note">Add a note</label>
         </div>
         <div class="col-2 mt-3">
                 <button type="button" class="btn btn-cyan" id="addNote">Add</button>
         </div>
-        <div class="col-12" id="existedNotes"></div>
+        <div class="col-12" id="existedNotes">
+            
+        </div>
     </div>
     <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
