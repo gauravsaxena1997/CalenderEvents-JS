@@ -60,5 +60,8 @@ tbody,thead{
 }
 tbody{
     cursor: pointer;
-
 }
+.fa-disabled {
+    opacity: 0.6;
+    pointer-events: none;
+  }

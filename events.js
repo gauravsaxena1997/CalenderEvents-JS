@@ -110,6 +110,7 @@ function showCalendar(month, year) {
                 let cell = document.createElement("td");
                 cell.setAttribute('id',date+'-'+month+'-'+year);
                 cell.setAttribute('onclick','notesOfTheDay(this.id)');
+                cell.classList.add('font-weight-bold');
                 let cellText = document.createTextNode(date);
                 existedNotesId.forEach( function(item) {
                     if (date+'-'+month+'-'+year == item){
@@ -145,6 +146,7 @@ function showCalendar(month, year) {
 
 document.getElementById('addNote').addEventListener('click',function(){
     var newEntry = false;
+    let note = document.getElementById('note');
     for(let i=0; i<details.length;i++){
         if (elementId == details[i].date){
             indexOfCurrentId = i;
@@ -155,7 +157,7 @@ document.getElementById('addNote').addEventListener('click',function(){
         newEntry = true;
         var pushDetails = {
             date: elementId,
-            notes: [ document.getElementById('note').value ]
+            notes: [ note.value ]
         };
         details.push(pushDetails);
     } 
@@ -191,6 +193,14 @@ let notesOfTheDay=(id)=>{
             document.getElementById('existedNotes').innerHTML = '';
         }
     }
-
     $('#addEvent').modal('show');
 };
+
+var note = document.getElementById('note');
+note.addEventListener('keyup',function(){
+    if ( note.value.length>0 ){
+        document.getElementById('addNote').classList.remove('fa-disabled');      
+    } else if (note.value.length<=0){
+        document.getElementById('addNote').classList.add('fa-disabled');      
+    }
+});
