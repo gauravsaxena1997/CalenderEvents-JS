@@ -1,3 +1,4 @@
+// localStorage.removeItem('notesCollection');
 // Tooltips Initialization
 $(function () {
     $('[data-toggle="tooltip"]').tooltip()
@@ -14,7 +15,7 @@ document.getElementById('userName').innerHTML = 'Hello '+userDetails.name;
 
 // use notes details from localstorage------
 var notesCollection = JSON.parse(localStorage.getItem('notesCollection')) || [];
-var indexLocation = null, elementId =null, indexOfCurrentId =null, dateAndNotes = null;
+var indexLocation = null, elementId =null, oldNotes =null, dateAndNotes = null;
 notesCollection.forEach(function(collection){
     if ( userDetails.email === collection.email ){
         indexLocation = notesCollection.indexOf(collection);
@@ -31,7 +32,7 @@ if (indexLocation===null){
     indexLocation = notesCollection.length-1;
 }
 var details = notesCollection[indexLocation].details;
-
+var note = document.getElementById('note');
 
 // for testing (getting user notes details)--
 Object.keys(localStorage).forEach(function(key){
@@ -143,52 +144,63 @@ function showCalendar(month, year) {
     }
 }
 
-
+// add note--------------------------------------
 document.getElementById('addNote').addEventListener('click',function(){
     var newEntry = false;
-    let note = document.getElementById('note');
     for(let i=0; i<details.length;i++){
         if (elementId == details[i].date){
-            indexOfCurrentId = i;
+            oldNotes = i;
             break;
         }
     }
-    if(indexOfCurrentId === null){
+    if(oldNotes === null){
         newEntry = true;
-        var pushDetails = {
+        var newDetails = {
             date: elementId,
             notes: [ note.value ]
         };
-        details.push(pushDetails);
+        details.push(newDetails);
     } 
-    if (!newEntry) details[indexOfCurrentId].notes.push(document.getElementById('note').value);
+    if (!newEntry) details[oldNotes].notes.push(note.value);
     localStorage.setItem('notesCollection',JSON.stringify(notesCollection));
     notesCollection = JSON.parse(localStorage.getItem('notesCollection'));
-    indexOfCurrentId=null;
+    details = notesCollection[indexLocation].details;
+    oldNotes=null;
+    note.value='';
     notesOfTheDay(elementId);
-    document.getElementById('note').value='';
     showCalendar(currentMonth, currentYear);
+    document.getElementById('addNote').classList.add('fa-disabled');
     tooltipInit();
 });
 
+// show notes------------------------------------
 let notesOfTheDay=(id)=>{
     elementId = id;
     dateAndNotes = null;
+    indexOfselectedItem = null;
     document.getElementById('eventTitle').innerHTML='Notes of '+elementId;
+    document.getElementById('existedNotes').innerHTML = '';
     if (indexLocation!=null){
         for(let i=0;i<details.length;i++){
             if ( elementId == details[i].date ){
+                indexOfselectedItem = i;
                 dateAndNotes = details[i];
                 break;
             }
         }
         if (dateAndNotes){
-            var notes = '<ul>';
-            for ( let i =0; i<dateAndNotes.notes.length; i++ ){
-                notes+= '<li>'+ dateAndNotes.notes[i]  +'</li>';
+            let ul = document.createElement('ul');
+            ul.classList.add('list-group','list-group-flush')
+            for ( let i=0; i<dateAndNotes.notes.length; i++ ){
+                let li = document.createElement('li');
+                li.classList.add('list-group-item');
+                li.setAttribute('id',i);
+                li.setAttribute('onclick','deleteNote(indexOfselectedItem,this.id,elementId)');
+                let txtNode = document.createTextNode(dateAndNotes.notes[i]);
+                li.appendChild(txtNode);
+                ul.appendChild(li);
+                document.getElementById('existedNotes').appendChild(ul);
             }
-            notes+= '</ul>';
-            document.getElementById('existedNotes').innerHTML = notes;
         }   else {
             document.getElementById('existedNotes').innerHTML = '';
         }
@@ -196,7 +208,7 @@ let notesOfTheDay=(id)=>{
     $('#addEvent').modal('show');
 };
 
-var note = document.getElementById('note');
+// disable add note button when empty-------------
 note.addEventListener('keyup',function(){
     if ( note.value.length>0 ){
         document.getElementById('addNote').classList.remove('fa-disabled');      
@@ -204,3 +216,18 @@ note.addEventListener('keyup',function(){
         document.getElementById('addNote').classList.add('fa-disabled');      
     }
 });
+
+
+// delete a note----------------------------------
+let deleteNote=(indexOfselectedItem,id,elementId)=>{
+    notesCollection[indexLocation].details[indexOfselectedItem].notes.splice(id,1);
+    if ( !notesCollection[indexLocation].details[indexOfselectedItem].notes.length ){
+        notesCollection[indexLocation].details.splice(indexOfselectedItem,1)
+    }
+    localStorage.setItem('notesCollection',JSON.stringify(notesCollection));
+    notesCollection = JSON.parse(localStorage.getItem('notesCollection'));
+    details = notesCollection[indexLocation].details;
+    notesOfTheDay(elementId);
+    showCalendar(currentMonth,currentYear);
+    tooltipInit();
+}
