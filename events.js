@@ -11,6 +11,8 @@ notesCollection.forEach(function(collection){
     }
 });
 
+var elementId =null, indexOfCurrentId =null;
+
 // for testing (getting user notes details)--
 Object.keys(localStorage).forEach(function(key){
     console.log(localStorage.getItem(key));
@@ -94,14 +96,24 @@ function showCalendar(month, year) {
 }
 
 
-let addNote=()=>{
-
-};
+document.getElementById('addNote').addEventListener('click',function(){
+    var details = notesCollection[indexLocation].details;
+    for(let i=0; i<details.length;i++){
+        if (elementId == details[i].date){
+            indexOfCurrentId = i;
+        }
+    }
+    details[indexOfCurrentId].notes.push(document.getElementById('note').value);
+    localStorage.setItem('notesCollection',JSON.stringify(notesCollection));
+    notesCollection = JSON.parse(localStorage.getItem('notesCollection'));
+    indexOfCurrentId=null;
+});
 
 let notesOfTheDay=(id)=>{
+    elementId = id;
     if (indexLocation!=null){
-    notesCollection[indexLocation].details.forEach(function(element){
-    document.getElementById('existedNotes').innerHTML = '';    
+        document.getElementById('existedNotes').innerHTML = '';    
+        notesCollection[indexLocation].details.forEach(function(element){
     if ( id == element.date ){
             dateAndNotes = element;
         } else {

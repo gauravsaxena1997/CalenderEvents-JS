@@ -58,3 +58,7 @@ body{
 tbody,thead{
     text-align: center;
 }
+tbody{
+    cursor: pointer;
+
+}
