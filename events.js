@@ -194,10 +194,13 @@ let notesOfTheDay=(id)=>{
             for ( let i=0; i<dateAndNotes.notes.length; i++ ){
                 let li = document.createElement('li');
                 li.classList.add('list-group-item');
-                li.setAttribute('id',i);
-                li.setAttribute('onclick','deleteNote(indexOfselectedItem,this.id,elementId)');
+                span = document.createElement('span');
+                span.classList.add('fas', 'fa-trash-alt','text-primary','pl-3');
+                span.setAttribute('id',i);
+                span.setAttribute('onclick','deleteNote(indexOfselectedItem,this.id,elementId)');
                 let txtNode = document.createTextNode(dateAndNotes.notes[i]);
                 li.appendChild(txtNode);
+                li.appendChild(span);
                 ul.appendChild(li);
                 document.getElementById('existedNotes').appendChild(ul);
             }

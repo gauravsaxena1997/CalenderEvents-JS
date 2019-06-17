@@ -65,7 +65,7 @@ tbody{
     opacity: 0.6;
     pointer-events: none;
   }
-li:hover{
+/* li:hover{
     text-decoration: line-through;
     cursor: pointer;
-}
+} */
