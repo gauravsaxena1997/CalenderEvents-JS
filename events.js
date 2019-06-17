@@ -1,3 +1,13 @@
+// Tooltips Initialization
+$(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+});
+let tooltipInit = () => {
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    });
+}
+
 // user details from localstorage-----------
 var userDetails = JSON.parse(sessionStorage.getItem('userDetails'));
 document.getElementById('userName').innerHTML = 'Hello '+userDetails.name;
@@ -20,7 +30,8 @@ if (indexLocation===null){
     notesCollection = JSON.parse(localStorage.getItem('notesCollection'));
     indexLocation = notesCollection.length-1;
 }
-console.log(indexLocation);
+var details = notesCollection[indexLocation].details;
+
 
 // for testing (getting user notes details)--
 Object.keys(localStorage).forEach(function(key){
@@ -42,18 +53,22 @@ function next() {
     currentYear = (currentMonth === 11) ? currentYear + 1 : currentYear;
     currentMonth = (currentMonth + 1) % 12;
     showCalendar(currentMonth, currentYear);
+    tooltipInit();
 }
+
 
 function previous() {
     currentYear = (currentMonth === 0) ? currentYear - 1 : currentYear;
     currentMonth = (currentMonth === 0) ? 11 : currentMonth - 1;
     showCalendar(currentMonth, currentYear);
+    tooltipInit();
 }
 
 function jump() {
     currentYear = parseInt(selectYear.value);
     currentMonth = parseInt(selectMonth.value);
     showCalendar(currentMonth, currentYear);
+    tooltipInit();
 }
 
 function showCalendar(month, year) {
@@ -61,10 +76,9 @@ function showCalendar(month, year) {
     let daysInMonth = 32 - new Date(year, month, 32).getDate();
     let tbl = document.getElementById("calendar-body"); // body of the calendar
     let existedNotesId = []
-    for (let i=0;i<notesCollection[indexLocation].details.length;i++){
-        existedNotesId.push(notesCollection[indexLocation].details[i].date)
+    for (let i=0;i<details.length;i++){
+        existedNotesId.push(details[i].date)
     }
-    console.log(existedNotesId);
 
     // clearing all previous cells
     tbl.innerHTML = "";
@@ -98,9 +112,21 @@ function showCalendar(month, year) {
                 cell.setAttribute('onclick','notesOfTheDay(this.id)');
                 let cellText = document.createTextNode(date);
                 existedNotesId.forEach( function(item) {
-                    if (date+'-'+month+'-'+year== item){
-                        cell.classList.add("purple-gradient","text-light")
-                        
+                    if (date+'-'+month+'-'+year == item){
+                        cell.classList.add("purple-gradient","text-light");
+                        cell.setAttribute('data-toggle','tooltip');
+                        cell.setAttribute('data-html','true');
+                        for(let i=0;i<details.length;i++){
+                            if (details[i].date == item) {
+                                var tooltip = details[i].notes;       
+                            }
+                        }
+                        var txt = '<ul>';
+                        for (let i=0;i<tooltip.length;i++){
+                            txt += '<li>'+ tooltip[i] +'</li>';
+                        }
+                        txt += '</ul>'
+                        cell.setAttribute('title',txt);        
                     } 
                 })
                 if (date === today.getDate() && year === today.getFullYear() && month === today.getMonth()) {
@@ -118,7 +144,6 @@ function showCalendar(month, year) {
 
 
 document.getElementById('addNote').addEventListener('click',function(){
-    var details = notesCollection[indexLocation].details;
     var newEntry = false;
     for(let i=0; i<details.length;i++){
         if (elementId == details[i].date){
@@ -132,7 +157,7 @@ document.getElementById('addNote').addEventListener('click',function(){
             date: elementId,
             notes: [ document.getElementById('note').value ]
         };
-        notesCollection[indexLocation].details.push(pushDetails);
+        details.push(pushDetails);
     } 
     if (!newEntry) details[indexOfCurrentId].notes.push(document.getElementById('note').value);
     localStorage.setItem('notesCollection',JSON.stringify(notesCollection));
@@ -141,7 +166,7 @@ document.getElementById('addNote').addEventListener('click',function(){
     notesOfTheDay(elementId);
     document.getElementById('note').value='';
     showCalendar(currentMonth, currentYear);
-
+    tooltipInit();
 });
 
 let notesOfTheDay=(id)=>{
@@ -149,7 +174,6 @@ let notesOfTheDay=(id)=>{
     dateAndNotes = null;
     document.getElementById('eventTitle').innerHTML='Notes of '+elementId;
     if (indexLocation!=null){
-        var details = notesCollection[indexLocation].details;
         for(let i=0;i<details.length;i++){
             if ( elementId == details[i].date ){
                 dateAndNotes = details[i];
@@ -170,15 +194,3 @@ let notesOfTheDay=(id)=>{
 
     $('#addEvent').modal('show');
 };
-
-
-
-    // var newNote =   { email: userDetails.email,
-    //       details: [
-    //           { date: id, 
-    //             notes: [ 'wefewee' , 'fffffffwefwe', 'eeeeeeewefw' ]
-    //           }         
-    //       ]  
-    // };
-    // notesCollection.push(newNote);
-    // localStorage.setItem('notesCollection',JSON.stringify(notesCollection));
