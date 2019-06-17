@@ -160,3 +160,34 @@ function signin() {
         $('#invalidModal').modal('show');
     }
 }
+
+// password visibility toggle
+var visibilityToggle =document.getElementById('visibilityToggle1');
+var visibilityToggle2 =document.getElementById('visibilityToggle2');
+visibilityToggle.addEventListener('mousedown', ()=>{
+    signinPassword.type='text';
+    visibilityToggle.classList.remove('fa-eye');
+    visibilityToggle.classList.add('fa-eye-slash','text-primary');
+});
+visibilityToggle.addEventListener('mouseup', ()=>{
+    signinPassword.type='password';
+    visibilityToggle.classList.remove('fa-eye-slash');
+    visibilityToggle.classList.add('fa-eye');
+});
+
+visibilityToggle2.addEventListener('mousedown', ()=>{
+    password.type='text';
+    visibilityToggle2.classList.remove('fa-eye');
+    visibilityToggle2.classList.add('fa-eye-slash','text-primary');
+});
+visibilityToggle2.addEventListener('mouseup', ()=>{
+    password.type='password';
+    visibilityToggle2.classList.remove('fa-eye-slash');
+    visibilityToggle2.classList.add('fa-eye');
+});
+
+// signup button
+document.getElementById('signupBtn').addEventListener('click',()=>{
+    document.getElementById('signupForm').reset();
+    document.getElementById('signupForm').reset();
+})

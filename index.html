@@ -37,10 +37,16 @@
                 <input type="text" id="email" class="form-control" required>
                 <label for="email">E-mail address</label>
             </div>
-            <div class="md-form">
-                <i class="fas fa-lock prefix"></i>
-                <input type="password" id="password" class="form-control" required>
-                <label for="password">Type your password</label>
+            <div class="md-form row">
+                <div class="col-10">
+                    <i class="fas fa-lock prefix"></i>
+                    <input type="password" id="password" class="form-control" required>
+                    <label for="password"> Type your password</label>
+                </div>
+                <div class="col-2">
+                    <i id="visibilityToggle1" class="far fa-2x fa-eye text-primary"></i>
+                </div>
+                
             </div><br><br>
             <button class="btn blue-gradient btn-block text-light">Sign in</button>
         </form>
@@ -48,7 +54,7 @@
     
     <div id="signup-div" class="p-4">
         <h4>New User ?</h4>
-        <a href=""  data-toggle="modal" data-target="#modalRegisterForm">
+        <a href=""  data-toggle="modal" data-target="#modalRegisterForm" id="signupBtn">
         Sign up </a>
     </div>
     </div>
@@ -65,7 +71,7 @@
 <div class="modal fade" id="modalRegisterForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
   aria-hidden="true">
   <div class="modal-dialog" role="document">
-    <div class="modal-content"><form  onsubmit="storeCredentials(); return false">
+    <div class="modal-content"><form id="signupForm"  onsubmit="storeCredentials(); return false">
       <div class="modal-header text-center">
         <h4 class="modal-title w-100 font-weight-bold">Sign up</h4>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -86,12 +92,16 @@
             <label for="signup-email">Your email</label>
             <div id="emailError" class="invalid"></div>
         </div>
-
-        <div class="md-form mb-4">
-            <i class="fas fa-lock prefix grey-text"></i>
-            <input type="password" id="signup-password" class="form-control"
-            pattern="(?=.*\d)(?=.*[a-zA-Z])(?=.*[^a-z0-9A-Z]).{8,}" required>
-            <label for="signup-password">Your password</label>
+        <div class="md-form mb-4 row">
+          <div class="col-10">
+              <i class="fas fa-lock prefix grey-text"></i>
+              <input type="password" id="signup-password" class="form-control"
+              pattern="(?=.*\d)(?=.*[a-zA-Z])(?=.*[^a-z0-9A-Z]).{8,}" required>
+              <label for="signup-password">Your password</label>
+          </div>
+          <div class="col-2">
+              <i id="visibilityToggle2" class="far fa-2x fa-eye text-primary"></i>
+          </div>            
         </div>
         <div id="message">
             Password requires:
