@@ -16,7 +16,7 @@ var signinPassword = document.getElementById('password');
 var credentials = false;
 var userDetails = {
     name: '',
-    email: '',
+    email: ''
 };
 
 // validation of password ------------------------------------------

@@ -60,6 +60,11 @@ function showCalendar(month, year) {
     let firstDay = (new Date(year, month)).getDay();
     let daysInMonth = 32 - new Date(year, month, 32).getDate();
     let tbl = document.getElementById("calendar-body"); // body of the calendar
+    let existedNotesId = []
+    for (let i=0;i<notesCollection[indexLocation].details.length;i++){
+        existedNotesId.push(notesCollection[indexLocation].details[i].date)
+    }
+    console.log(existedNotesId);
 
     // clearing all previous cells
     tbl.innerHTML = "";
@@ -75,6 +80,7 @@ function showCalendar(month, year) {
         // creates a table row
         let row = document.createElement("tr");
 
+        
         //creating individual cells, filing them up with data.
         for (let j = 0; j < 7; j++) {
             if (i === 0 && j < firstDay) {
@@ -91,9 +97,16 @@ function showCalendar(month, year) {
                 cell.setAttribute('id',date+'-'+month+'-'+year);
                 cell.setAttribute('onclick','notesOfTheDay(this.id)');
                 let cellText = document.createTextNode(date);
+                existedNotesId.forEach( function(item) {
+                    if (date+'-'+month+'-'+year== item){
+                        cell.classList.add("purple-gradient","text-light")
+                        
+                    } 
+                })
                 if (date === today.getDate() && year === today.getFullYear() && month === today.getMonth()) {
                     cell.classList.add("blue-gradient","text-light");
                 } // color today's date
+                
                 cell.appendChild(cellText);
                 row.appendChild(cell);
                 date++;
@@ -127,6 +140,8 @@ document.getElementById('addNote').addEventListener('click',function(){
     indexOfCurrentId=null;
     notesOfTheDay(elementId);
     document.getElementById('note').value='';
+    showCalendar(currentMonth, currentYear);
+
 });
 
 let notesOfTheDay=(id)=>{
