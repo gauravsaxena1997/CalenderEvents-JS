@@ -132,6 +132,7 @@ let getWeeklyNotes=(d)=>{
 }
 getWeeklyNotes(new Date());
 
+// calendar operations--------------------------
 function next() {
     currentYear = (currentMonth === 11) ? currentYear + 1 : currentYear;
     currentMonth = (currentMonth + 1) % 12;
@@ -222,7 +223,7 @@ function showCalendar(month, year) {
     }
 }
 
-// add note--------------------------------------
+// add a note--------------------------------------
 document.getElementById('addNote').addEventListener('click',function(){
     var newEntry = false;
     for(let i=0; i<details.length;i++){
@@ -273,13 +274,21 @@ let notesOfTheDay=(id)=>{
             for ( let i=0; i<dateAndNotes.notes.length; i++ ){
                 let li = document.createElement('li');
                 li.classList.add('list-group-item');
-                span = document.createElement('span');
-                span.classList.add('fas', 'fa-trash-alt','text-primary','pl-3');
-                span.setAttribute('id',i);
-                span.setAttribute('onclick','deleteNote(indexOfselectedItem,this.id,elementId)');
+                // Edit button---------------
+                edit = document.createElement('span');
+                edit.classList.add('far', 'fa-edit','text-primary','pl-3');
+                edit.setAttribute('id',i);
+                edit.setAttribute('onclick','editNote(this,indexOfselectedItem,this.id,elementId)');
+                // Delete button---------------
+                del = document.createElement('span');
+                del.classList.add('fas', 'fa-trash-alt','text-primary','pl-3');
+                del.setAttribute('id',i);
+                del.setAttribute('onclick','deleteNote(indexOfselectedItem,this.id,elementId)');
+
                 let txtNode = document.createTextNode(dateAndNotes.notes[i]);
                 li.appendChild(txtNode);
-                li.appendChild(span);
+                li.appendChild(edit);
+                li.appendChild(del);
                 ul.appendChild(li);
                 document.getElementById('existedNotes').appendChild(ul);
             }
@@ -289,16 +298,6 @@ let notesOfTheDay=(id)=>{
     }
     $('#addEvent').modal('show');
 };
-
-// disable add note button when empty-------------
-note.addEventListener('keyup',function(){
-    if ( note.value.length>0 ){
-        document.getElementById('addNote').classList.remove('fa-disabled');      
-    } else if (note.value.length<=0){
-        document.getElementById('addNote').classList.add('fa-disabled');      
-    }
-});
-
 
 // delete a note----------------------------------
 let deleteNote=(indexOfselectedItem,id,elementId)=>{
@@ -311,8 +310,50 @@ let deleteNote=(indexOfselectedItem,id,elementId)=>{
     details = notesCollection[indexLocation].details;
     notesOfTheDay(elementId);
     showCalendar(currentMonth,currentYear);
+    getWeeklyNotes(new Date());
     tooltipInit();
 }
+
+// edit a note -----------------------------------
+let editNote=(ele,indexOfselectedItem,id,elementId)=>{
+    let parentTag =  ele.parentNode;
+    let containerDiv = document.createElement('div');
+    containerDiv.classList.add('row','p-0');
+    let div = document.createElement('div');
+    div.classList.add('md-form','col-6','p-0')
+    let input = document.createElement('input');
+    input.classList.add('form-control','p-0');
+    input.setAttribute('id','saveEdit');
+    input.type = 'text';
+    input.focus();
+    input.value = ele.parentNode.textContent;    
+    div.appendChild(input);
+    containerDiv.appendChild(div);
+    save = document.createElement('span');
+    save.classList.add('fas', 'fa-check','fa-2x','text-primary','col-6','p-0');
+    save.addEventListener('click',()=>{
+        notesCollection[indexLocation].details[indexOfselectedItem].notes.splice(id,1,document.getElementById('saveEdit').value);
+        localStorage.setItem('notesCollection',JSON.stringify(notesCollection));
+        notesCollection = JSON.parse(localStorage.getItem('notesCollection'));
+        details = notesCollection[indexLocation].details;
+        notesOfTheDay(elementId);
+        showCalendar(currentMonth,currentYear);
+        getWeeklyNotes(new Date());
+        tooltipInit();
+    });
+    containerDiv.appendChild(save);
+    ele.parentNode.innerHTML='';
+    parentTag.appendChild(containerDiv);
+};
+
+// disable add note button when empty-------------
+note.addEventListener('keyup',function(){
+    if ( note.value.length>0 ){
+        document.getElementById('addNote').classList.remove('fa-disabled');      
+    } else if (note.value.length<=0){
+        document.getElementById('addNote').classList.add('fa-disabled');      
+    }
+});
 
 // weekly tasks button-----------------------------
 document.getElementById('weeklyNotesBtn').addEventListener('click',function(){
@@ -326,14 +367,11 @@ document.getElementById('shortcutsBtn').addEventListener('click',function(){
     $('#shortcutsModal').modal('show');
 });
 
+// keyboard handling--------------------------------
 let modal = false;
 let shortcut = false;
-// keyboard handling--------------------------------
-document.onkeydown = function(e){
-    e = e || window.event;
-    var key = e.which || e.keyCode;
-    if(key===87){
-        
+document.addEventListener ("keydown", function (zEvent) {
+    if (zEvent.altKey &&  zEvent.key === "w") {
         if( modal==false ) {
             $('#addEvent').modal('hide');
             $('#weeklyNotesModal').modal('show');  
@@ -341,14 +379,12 @@ document.onkeydown = function(e){
         } else {
             $('#weeklyNotesModal').modal('hide');
             modal = false;
-        }
-    } else if (key==78){
-        next()
-    } else if (key==80){
-        previous()
-    } else if (key==76){
-        window.location.href='index.html';
-    } else if (key==83){
+        }       
+    } else if (zEvent.altKey &&  zEvent.key === "n") {
+        next();
+    } else if (zEvent.altKey &&  zEvent.key === "p") {
+        previous();
+    } else if (zEvent.altKey &&  zEvent.key === "s") {
         if ( shortcut == false ){
             $('#weeklyNotesModal').modal('hide');
             $('#addEvent').modal('hide');
@@ -358,6 +394,5 @@ document.onkeydown = function(e){
             $('#shortcutsModal').modal('hide');
             shortcut = false;
         }
-
     }
-}
+} ); 
