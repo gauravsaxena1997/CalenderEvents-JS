@@ -223,36 +223,6 @@ function showCalendar(month, year) {
     }
 }
 
-// add a note--------------------------------------
-document.getElementById('addNote').addEventListener('click',function(){
-    var newEntry = false;
-    for(let i=0; i<details.length;i++){
-        if (elementId == details[i].date){
-            oldNotes = i;
-            break;
-        }
-    }
-    if(oldNotes === null){
-        newEntry = true;
-        var newDetails = {
-            date: elementId,
-            notes: [ note.value ]
-        };
-        details.push(newDetails);
-    } 
-    if (!newEntry) details[oldNotes].notes.push(note.value);
-    localStorage.setItem('notesCollection',JSON.stringify(notesCollection));
-    notesCollection = JSON.parse(localStorage.getItem('notesCollection'));
-    details = notesCollection[indexLocation].details;
-    oldNotes=null;
-    note.value='';
-    notesOfTheDay(elementId);
-    showCalendar(currentMonth, currentYear);
-    document.getElementById('addNote').classList.add('fa-disabled');
-    getWeeklyNotes(new Date());
-    tooltipInit();
-});
-
 // show notes------------------------------------
 let notesOfTheDay=(id)=>{
     elementId = id;
@@ -260,6 +230,9 @@ let notesOfTheDay=(id)=>{
     indexOfselectedItem = null;
     document.getElementById('eventTitle').innerHTML='Notes of '+elementId;
     document.getElementById('existedNotes').innerHTML = '';
+    delAll = document.createElement('span');
+    delAll.classList.add('far', 'fa-trash-alt','text-primary','pl-3');
+    delAll.setAttribute('onclick','editNote(this,indexOfselectedItem,this.id,elementId)');
     if (indexLocation!=null){
         for(let i=0;i<details.length;i++){
             if ( elementId == details[i].date ){
@@ -299,6 +272,41 @@ let notesOfTheDay=(id)=>{
     $('#addEvent').modal('show');
 };
 
+// add a note--------------------------------------
+document.getElementById('addNote').addEventListener('click',function(){
+    var newEntry = false;
+    for(let i=0; i<details.length;i++){
+        if (elementId == details[i].date){
+            oldNotes = i;
+            break;
+        }
+    }
+    if(oldNotes === null){
+        newEntry = true;
+        var newDetails = {
+            date: elementId,
+            notes: [ note.value ]
+        };
+        details.push(newDetails);
+    } 
+    if (!newEntry) details[oldNotes].notes.push(note.value);
+    localStorage.setItem('notesCollection',JSON.stringify(notesCollection));
+    notesCollection = JSON.parse(localStorage.getItem('notesCollection'));
+    details = notesCollection[indexLocation].details;
+    oldNotes=null;
+    note.value='';
+    notesOfTheDay(elementId);
+    showCalendar(currentMonth, currentYear);
+    document.getElementById('addNote').classList.add('fa-disabled');
+    getWeeklyNotes(new Date());
+    tooltipInit();
+    document.getElementById('successMsg').innerHTML='Note added successfully.';
+    $('#addNoteSuccessModal').modal('show');
+    setTimeout(() => {
+        $('#addNoteSuccessModal').modal('hide');        
+    }, 2000);
+});
+
 // delete a note----------------------------------
 let deleteNote=(indexOfselectedItem,id,elementId)=>{
     notesCollection[indexLocation].details[indexOfselectedItem].notes.splice(id,1);
@@ -312,6 +320,10 @@ let deleteNote=(indexOfselectedItem,id,elementId)=>{
     showCalendar(currentMonth,currentYear);
     getWeeklyNotes(new Date());
     tooltipInit();
+    $('#delNoteSuccessModal').modal('show');
+    setTimeout(() => {
+        $('#delNoteSuccessModal').modal('hide');        
+    }, 2000);
 }
 
 // edit a note -----------------------------------
@@ -342,6 +354,11 @@ let editNote=(ele,indexOfselectedItem,id,elementId)=>{
         showCalendar(currentMonth,currentYear);
         getWeeklyNotes(new Date());
         tooltipInit();
+        document.getElementById('successMsg').innerHTML='Note updated successfully.';
+        $('#addNoteSuccessModal').modal('show');
+        setTimeout(() => {
+            $('#addNoteSuccessModal').modal('hide');        
+        }, 2000);
     });
     containerDiv.appendChild(save);
     ele.parentNode.innerHTML='';
@@ -356,9 +373,6 @@ note.addEventListener('keyup',function(){
         document.getElementById('addNote').classList.add('fa-disabled');      
     }
 });
-
-// disable save edit button when empty-------------
-
 
 // weekly tasks button-----------------------------
 document.getElementById('weeklyNotesBtn').addEventListener('click',function(){

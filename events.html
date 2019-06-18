@@ -114,6 +114,7 @@
     <div class="modal-content">
     <div class="modal-header">
         <h5 class="modal-title" id="eventTitle"> </h5>
+        <button class="btn btn-primary" id="deleteAllBtn">Delete All</button>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
         <span aria-hidden="true">&times;</span>
         </button>
@@ -174,7 +175,6 @@
 </div>
 <!-- End -->
 
-
 <!-- Modal for keyboard shortcuts -->
 <div class="modal fade" id="shortcutsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
   aria-hidden="true">
@@ -223,6 +223,41 @@
   </div>
 </div>
 <!-- End -->
+
+<!-- Modal for Add and and Update Success -->
+<div class="modal fade right" id="addNoteSuccessModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-notify modal-success" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="text-center">
+          <i class="fas fa-check fa-4x mb-3 animated rotateIn"></i>
+          <p id="successMsg"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End-->
+
+<!-- Modal for Add and and Update Success -->
+<div class="modal fade right" id="delNoteSuccessModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-notify modal-danger" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="text-center">
+          <i class="fas fa-times fa-4x mb-3 animated rotateIn"></i>
+          <p>Note deleted successfully.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End-->
+
+
+
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
