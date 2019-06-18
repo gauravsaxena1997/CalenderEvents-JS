@@ -318,21 +318,23 @@ let deleteNote=(indexOfselectedItem,id,elementId)=>{
 let editNote=(ele,indexOfselectedItem,id,elementId)=>{
     let parentTag =  ele.parentNode;
     let containerDiv = document.createElement('div');
-    containerDiv.classList.add('row','p-0');
+    containerDiv.classList.add('form-inline','row');
     let div = document.createElement('div');
-    div.classList.add('md-form','col-6','p-0')
+    div.classList.add('md-form','form-group','col-6');
     let input = document.createElement('input');
     input.classList.add('form-control','p-0');
-    input.setAttribute('id','saveEdit');
+    input.setAttribute('id','editNoteField');
+    input.classList.add('col-12');
     input.type = 'text';
     input.focus();
     input.value = ele.parentNode.textContent;    
     div.appendChild(input);
     containerDiv.appendChild(div);
     save = document.createElement('span');
-    save.classList.add('fas', 'fa-check','fa-2x','text-primary','col-6','p-0');
+    save.classList.add('fas', 'fa-check','fa-2x','text-primary','form-group');
+    save.setAttribute('id','saveEditBtn')
     save.addEventListener('click',()=>{
-        notesCollection[indexLocation].details[indexOfselectedItem].notes.splice(id,1,document.getElementById('saveEdit').value);
+        notesCollection[indexLocation].details[indexOfselectedItem].notes.splice(id,1,document.getElementById('editNoteField').value);
         localStorage.setItem('notesCollection',JSON.stringify(notesCollection));
         notesCollection = JSON.parse(localStorage.getItem('notesCollection'));
         details = notesCollection[indexLocation].details;
@@ -354,6 +356,9 @@ note.addEventListener('keyup',function(){
         document.getElementById('addNote').classList.add('fa-disabled');      
     }
 });
+
+// disable save edit button when empty-------------
+
 
 // weekly tasks button-----------------------------
 document.getElementById('weeklyNotesBtn').addEventListener('click',function(){
