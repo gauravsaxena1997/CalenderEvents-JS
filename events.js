@@ -44,11 +44,50 @@ let currentMonth = today.getMonth();
 let currentYear = today.getFullYear();
 let selectYear = document.getElementById("year");
 let selectMonth = document.getElementById("month");
-
 let months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-
 let monthAndYear = document.getElementById("monthAndYear");
 showCalendar(currentMonth, currentYear);
+
+// get array of current and next week notes-------
+let getWeeklyNotes=(d)=>{
+    d = new Date(d);
+    var day = d.getDay(),
+    firstDay = d.getDate() - day + (day == 0 ? -6:1);
+    let currentWeekArr = [];
+    let nxtWeekArr = [];
+    let currentWeekNotes = [];
+    let nxtWeekNotes = [];
+    nxt = firstDay;
+    for (let i=0;i<7;i++){
+        nxtDay = new Date(d.setDate(nxt));
+        currentWeekArr.push(nxtDay.getDate()+'-'+nxtDay.getMonth()+'-'+nxtDay.getFullYear());
+        nxt++;
+    }
+    for (let i=0;i<7;i++){
+        nxtWeekDay = new Date(d.setDate(nxt));
+        nxtWeekArr.push(nxtWeekDay.getDate()+'-'+nxtWeekDay.getMonth()+'-'+nxtWeekDay.getFullYear());
+        nxt++;
+    }
+    for ( day in currentWeekArr){
+        for ( item in details ) {
+            if(details[item].date==currentWeekArr[day])
+            currentWeekNotes.push(details[item]);
+        }
+    }
+    for ( day in nxtWeekArr){
+        for ( item in details ) {
+            if(details[item].date==nxtWeekArr[day])
+            nxtWeekNotes.push(details[item]);
+        }
+    }
+
+    return [currentWeekNotes,nxtWeekNotes];
+}
+
+// assigning arrays fetched by the function------
+let weeklyNotes = getWeeklyNotes(new Date());
+let currentWeekNotes = weeklyNotes[0], nxtWeekNotes = weeklyNotes[1];
+console.log(currentWeekNotes, nxtWeekNotes);
 
 function next() {
     currentYear = (currentMonth === 11) ? currentYear + 1 : currentYear;
@@ -56,7 +95,6 @@ function next() {
     showCalendar(currentMonth, currentYear);
     tooltipInit();
 }
-
 
 function previous() {
     currentYear = (currentMonth === 0) ? currentYear - 1 : currentYear;
@@ -234,3 +272,5 @@ let deleteNote=(indexOfselectedItem,id,elementId)=>{
     showCalendar(currentMonth,currentYear);
     tooltipInit();
 }
+
+

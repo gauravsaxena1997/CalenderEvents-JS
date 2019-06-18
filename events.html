@@ -26,21 +26,20 @@
     </a>
 
     <ul class="navbar-nav ml-auto nav-flex-icons">
-        <li class="nav-item" id="current">
-            <a class="nav-link waves-effect waves-light">
-                <i class="fas fa-circle"></i>
+      <li class="nav-item" id="current">
+        <a class="nav-link waves-effect waves-light">
+          <span id="userName"></span>
+        </a>         
+     </li>
+      <li class="nav-item pl-3" id="current">
+            <a class="nav-link waves-effect waves-light" data-toggle="modal" data-target="#fullHeightModalRight">
+                <i class="fas fa-tasks" ></i> Tasks
             </a>
         </li>
-        <li class="nav-item dropdown pl-4">
-          <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-333" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false">
-            <i class="fas fa-user"></i>
+        <li class="nav-item pl-3" id="current">
+          <a class="nav-link waves-effect waves-light" href="./index.html">
+              <i class="fas fa-sign-out-alt" ></i> Log out
           </a>
-          <div class="dropdown-menu dropdown-menu-right dropdown-default"
-            aria-labelledby="navbarDropdownMenuLink-333">
-            <p id="userName"></p>   
-            <a class="dropdown-item" href="./index.html">Log Out</a>
-          </div>
         </li>
       </ul>
 </nav>
@@ -121,7 +120,7 @@
             <label for="note">Add a note</label>
         </div>
         <div class="col-2 mt-3">
-                <i class="fas fa-plus fa-3x text-primary fa-disabled" id="addNote"></i>
+                <i class="fas fa-plus fa-3x text-primary fa-disabled" data-toggle="tooltip" title="Add the note" id="addNote"></i>
         </div>
         <div class="col-12" id="existedNotes">      
         </div>
@@ -133,6 +132,47 @@
 </div>
 </div>
 <!-- End -->
+
+<!-- Weekly tasks -->
+<div class="modal fade right" id="fullHeightModalRight" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-full-height modal-right" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title w-100" id="myModalLabel">Weekly Tasks</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id="weeklyTasks">
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item">
+              <a class="nav-link active" id="thisWeekNotes-tab" data-toggle="tab" href="#thisWeekNotes" role="tab" aria-controls="thisWeekNotes"
+                aria-selected="true">This Week</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="nxtWeekNotes-tab" data-toggle="tab" href="#nxtWeekNotes" role="tab" aria-controls="nxtWeekNotes"
+                aria-selected="false">Next Week</a>
+            </li>
+          </ul>
+          <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="thisWeekNotes" role="tabpanel" aria-labelledby="thisWeekNotes-tab">
+                
+            </div>
+            <div class="tab-pane fade" id="nxtWeekNotes" role="tabpanel" aria-labelledby="nxtWeekNotes-tab">
+                
+            </div>
+          </div>
+      </div>
+      <div class="modal-footer justify-content-center">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End -->
+
+
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
