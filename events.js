@@ -1,5 +1,10 @@
 // localStorage.removeItem('notesCollection');
 // localStorage.removeItem('users');
+// for testing (getting user notes details)--
+// Object.keys(localStorage).forEach(function(key){
+//     console.log(localStorage.getItem(key));
+//  });
+
 // Tooltips Initialization
 $(function () {
     $('[data-toggle="tooltip"]').tooltip()
@@ -34,11 +39,6 @@ if (indexLocation===null){
 }
 var details = notesCollection[indexLocation].details;
 var note = document.getElementById('note');
-
-// for testing (getting user notes details)--
-Object.keys(localStorage).forEach(function(key){
-    console.log(localStorage.getItem(key));
- });
 
 let today = new Date();
 let currentMonth = today.getMonth();
@@ -254,21 +254,22 @@ let notesOfTheDay=(id)=>{
             for ( let i=0; i<dateAndNotes.notes.length; i++ ){
                 let li = document.createElement('li');
                 li.classList.add('list-group-item');
-                // Edit button---------------
-                edit = document.createElement('span');
-                edit.classList.add('far', 'fa-edit','text-primary','pl-3');
-                edit.setAttribute('id',i);
-                edit.setAttribute('onclick','editNote(this,indexOfselectedItem,this.id,elementId)');
-                // Delete button---------------
-                del = document.createElement('span');
-                del.classList.add('fas', 'fa-trash-alt','text-primary','pl-3');
-                del.setAttribute('id',i);
-                del.setAttribute('onclick','deleteNote(indexOfselectedItem,this.id,elementId)');
-
                 let txtNode = document.createTextNode(dateAndNotes.notes[i]);
-                li.appendChild(txtNode);
-                li.appendChild(edit);
-                li.appendChild(del);
+                li.appendChild(txtNode);                
+                if(!document.getElementById(elementId).classList.contains('previousDates')){
+                    // Edit button---------------
+                    edit = document.createElement('span');
+                    edit.classList.add('far', 'fa-edit','text-primary','pl-3');
+                    edit.setAttribute('id',i);
+                    edit.setAttribute('onclick','editNote(this,indexOfselectedItem,this.id,elementId)');
+                    // Delete button---------------
+                    del = document.createElement('span');
+                    del.classList.add('fas', 'fa-trash-alt','text-primary','pl-3');
+                    del.setAttribute('id',i);
+                    del.setAttribute('onclick','deleteNote(indexOfselectedItem,this.id,elementId)');
+                    li.appendChild(edit);
+                    li.appendChild(del);
+                }
                 ul.appendChild(li);
                 document.getElementById('existedNotes').appendChild(ul);
             }
@@ -311,7 +312,7 @@ document.getElementById('addNote').addEventListener('click',function(){
     $('#addNoteSuccessModal').modal('show');
     setTimeout(() => {
         $('#addNoteSuccessModal').modal('hide');        
-    }, 2000);
+    }, 1200);
 });
 
 // delete a note----------------------------------
@@ -330,7 +331,7 @@ let deleteNote=(indexOfselectedItem,id,elementId)=>{
     $('#delNoteSuccessModal').modal('show');
     setTimeout(() => {
         $('#delNoteSuccessModal').modal('hide');        
-    }, 2000);
+    }, 1200);
 }
 
 // edit a note -----------------------------------
@@ -365,7 +366,7 @@ let editNote=(ele,indexOfselectedItem,id,elementId)=>{
         $('#addNoteSuccessModal').modal('show');
         setTimeout(() => {
             $('#addNoteSuccessModal').modal('hide');        
-        }, 2000);
+        }, 1200);
     });
     containerDiv.appendChild(save);
     ele.parentNode.innerHTML='';
