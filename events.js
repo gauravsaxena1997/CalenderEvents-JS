@@ -188,7 +188,7 @@ function showCalendar(month, year) {
                 let cell = document.createElement("td");
                 cell.setAttribute('id',date+'-'+month+'-'+year);
                 cell.setAttribute('onclick','notesOfTheDay(this.id)');
-                cell.classList.add('font-weight-bold');
+                cell.classList.add('font-weight-bold','animated','fadeInDown');
                 let cellText = document.createTextNode(date);
                 if (new Date(new Date(year, month, date).toDateString()) < new Date(new Date().toDateString())){
                     cell.style.color='#CFCFCF';
@@ -232,11 +232,7 @@ let notesOfTheDay=(id)=>{
     indexOfselectedItem = null;
     document.getElementById('eventTitle').innerHTML='Notes of '+elementId;
     document.getElementById('existedNotes').innerHTML = '';
-    if(document.getElementById(elementId).classList.contains('previousDates')){
-        document.getElementById('addNoteDiv').style.display = 'none';
-    } else{
-        document.getElementById('addNoteDiv').style.display = 'block';
-    }
+    
     if (indexLocation!=null){
         for(let i=0;i<details.length;i++){
             if ( elementId == details[i].date ){
@@ -244,6 +240,13 @@ let notesOfTheDay=(id)=>{
                 dateAndNotes = details[i];
                 break;
             }
+        }
+        if(document.getElementById(elementId).classList.contains('previousDates') && !dateAndNotes ){
+            return;
+        } else if(document.getElementById(elementId).classList.contains('previousDates')){
+            document.getElementById('addNoteDiv').style.display = 'none';
+        } else{
+            document.getElementById('addNoteDiv').style.display = 'block';
         }
         if (dateAndNotes){
             let ul = document.createElement('ul');
@@ -270,7 +273,7 @@ let notesOfTheDay=(id)=>{
                 document.getElementById('existedNotes').appendChild(ul);
             }
         }   else {
-            document.getElementById('existedNotes').innerHTML = '';
+            document.getElementById('existedNotes').innerHTML = 'No notes for this day.';
         }
     }
     $('#addEvent').modal('show');
