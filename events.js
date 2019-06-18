@@ -151,7 +151,7 @@ function jump() {
     showCalendar(currentMonth, currentYear);
     tooltipInit();
 }
-function showCalendar(month, year) {
+function showCalendar(month, year) {    
     let firstDay = (new Date(year, month)).getDay();
     let daysInMonth = 32 - new Date(year, month, 32).getDate();
     let tbl = document.getElementById("calendar-body"); // body of the calendar
@@ -173,8 +173,6 @@ function showCalendar(month, year) {
     for (let i = 0; i < 6; i++) {
         // creates a table row
         let row = document.createElement("tr");
-
-        
         //creating individual cells, filing them up with data.
         for (let j = 0; j < 7; j++) {
             if (i === 0 && j < firstDay) {
@@ -192,6 +190,10 @@ function showCalendar(month, year) {
                 cell.setAttribute('onclick','notesOfTheDay(this.id)');
                 cell.classList.add('font-weight-bold');
                 let cellText = document.createTextNode(date);
+                if (new Date(new Date(year, month, date).toDateString()) < new Date(new Date().toDateString())){
+                    cell.style.color='#CFCFCF';
+                    cell.classList.add('previousDates');
+                }
                 existedNotesId.forEach( function(item) {
                     if (date+'-'+month+'-'+year == item){
                         cell.classList.add("purple-gradient","text-light");
@@ -209,7 +211,7 @@ function showCalendar(month, year) {
                         txt += '</ul>'
                         cell.setAttribute('title',txt);        
                     } 
-                })
+                });
                 if (date === today.getDate() && year === today.getFullYear() && month === today.getMonth()) {
                     cell.classList.add("blue-gradient","text-light");
                 } // color today's date
@@ -230,9 +232,11 @@ let notesOfTheDay=(id)=>{
     indexOfselectedItem = null;
     document.getElementById('eventTitle').innerHTML='Notes of '+elementId;
     document.getElementById('existedNotes').innerHTML = '';
-    delAll = document.createElement('span');
-    delAll.classList.add('far', 'fa-trash-alt','text-primary','pl-3');
-    delAll.setAttribute('onclick','editNote(this,indexOfselectedItem,this.id,elementId)');
+    if(document.getElementById(elementId).classList.contains('previousDates')){
+        document.getElementById('addNoteDiv').style.display = 'none';
+    } else{
+        document.getElementById('addNoteDiv').style.display = 'block';
+    }
     if (indexLocation!=null){
         for(let i=0;i<details.length;i++){
             if ( elementId == details[i].date ){
