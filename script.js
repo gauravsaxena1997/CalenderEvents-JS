@@ -136,7 +136,7 @@ signinPassword.addEventListener('keyup',function(){
             this.userDetails.email = user.email;
             console.log('Credentials are matched.'+this.userDetails);
             sessionStorage.setItem("userDetails", JSON.stringify(userDetails));  
-              
+            window.location.href = 'events.html';
         }
     })
 });
@@ -148,12 +148,11 @@ signinEmail.addEventListener('keyup',function(){
             this.userDetails.email = user.email;
             console.log('Credentials are matched.'+this.userDetails);
             sessionStorage.setItem("userDetails", JSON.stringify(userDetails));  
+            window.location.href = 'events.html';
         }
     })
 });
 function signin() {
-    console.log(credentials);
-    
     if (credentials == true){
         window.location.href = 'events.html';
     } else {

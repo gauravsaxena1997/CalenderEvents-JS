@@ -31,17 +31,22 @@
           <span id="userName"></span>
         </a>         
      </li>
-    <li class="nav-item pl-3" id="current">
-            <a class="nav-link waves-effect waves-light" id="weeklyNotesBtn">
-                <i class="fas fa-tasks" ></i> Tasks
-            </a>
-        </li>
-        <li class="nav-item pl-3" id="current">
+     <li class="nav-item pl-3" id="current">
+        <a class="nav-link waves-effect waves-light" id="weeklyNotesBtn">
+            <i class="fas fa-tasks" ></i> Weekly Notes
+        </a>
+      </li>
+      <li class="nav-item pl-3" id="current">
+        <a class="nav-link waves-effect waves-light" id="shortcutsBtn">
+            <i class="far fa-keyboard" ></i> Shortcuts
+        </a>
+      </li>
+      <li class="nav-item pl-3" id="current">
           <a class="nav-link waves-effect waves-light" href="./index.html">
               <i class="fas fa-sign-out-alt" ></i> Log out
           </a>
-        </li>
-      </ul>
+      </li>
+    </ul>
 </nav>
 
 
@@ -120,7 +125,7 @@
             <label for="note">Add a note</label>
         </div>
         <div class="col-2 mt-3">
-                <i class="fas fa-plus fa-3x text-primary fa-disabled" data-toggle="tooltip" title="Add the note" id="addNote"></i>
+                <i class="fas fa-plus fa-3x text-primary fa-disabled" data-toggle="tooltip" data-placement="right" title="Add note" id="addNote"></i>
         </div>
         <div class="col-12" id="existedNotes">      
         </div>
@@ -133,13 +138,13 @@
 </div>
 <!-- End -->
 
-<!-- Weekly tasks -->
+<!-- Modal for Weekly tasks -->
 <div class="modal fade right" id="weeklyNotesModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
   aria-hidden="true">
   <div class="modal-dialog modal-full-height modal-right" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title w-100" id="myModalLabel">Weekly Tasks</h4>
+        <h4 class="modal-title w-100" id="myModalLabel">Weekly Notes</h4>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -170,13 +175,58 @@
 <!-- End -->
 
 
-
+<!-- Modal for keyboard shortcuts -->
+<div class="modal fade" id="shortcutsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Keyboard Shortcuts</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <table id="tablePreview" class="table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th><b>Key</b></th>
+                <th><b>Action</b></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">1</th>
+                <td>p</td>
+                <td>Previous month calender</td>
+              </tr>
+              <tr>
+                <th scope="row">2</th>
+                <td>n</td>
+                <td>Next month calender</td>
+              </tr>
+              <tr>
+                <th scope="row">3</th>
+                <td>s</td>
+                <td>Show shortcuts</td>
+              </tr>
+              <tr>
+                <th scope="row">3</th>
+                <td>l</td>
+                <td>Logout</td>
+              </tr>
+            </tbody>
+          </table>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End -->
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.2/js/mdb.min.js"></script>
-<script src="shortcut.js"></script>
-<script src="calendar.js"></script>
 <script src="events.js"></script>
 </body>
 </html>

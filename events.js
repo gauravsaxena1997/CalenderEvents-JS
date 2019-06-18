@@ -1,4 +1,5 @@
 // localStorage.removeItem('notesCollection');
+// localStorage.removeItem('users');
 // Tooltips Initialization
 $(function () {
     $('[data-toggle="tooltip"]').tooltip()
@@ -48,9 +49,13 @@ let months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oc
 let monthAndYear = document.getElementById("monthAndYear");
 showCalendar(currentMonth, currentYear);
 
-// get array of current and next week notes-------
+// filling current and next week notes-------
 let getWeeklyNotes=(d)=>{
     d = new Date(d);
+    let thisWeekNotes = document.getElementById('thisWeekNotes');
+    let nxtWeek = document.getElementById('nxtWeekNotes');
+    thisWeekNotes.innerHTML='';
+    nxtWeek.innerHTML='';
     var day = d.getDay(),
     firstDay = d.getDate() - day + (day == 0 ? -6:1);
     let currentWeekArr = [];
@@ -80,60 +85,53 @@ let getWeeklyNotes=(d)=>{
             nxtWeekNotes.push(details[item]);
         }
     }
-
-    return [currentWeekNotes,nxtWeekNotes];
+    // filling out current week notes dynamically---
+    currentWeekNotes.forEach(function(notesObj){
+        let div = document.createElement('div');
+        div.addEventListener('click',function(){
+           notesOfTheDay(notesObj.date);
+           $('#weeklyNotesModal').modal('hide');
+        });
+        div.style.cursor='pointer';
+        let b = document.createElement('b');
+        let date = document.createTextNode(notesObj.date);
+        b.appendChild(date);
+        div.appendChild(b);
+        thisWeekNotes.appendChild(div);
+        let ul = document.createElement('ul');
+        notesObj.notes.forEach(function(noteElement){
+            let li = document.createElement('li');
+            let note = document.createTextNode(noteElement);
+            li.appendChild(note);
+            ul.appendChild(li);
+        });
+        thisWeekNotes.appendChild(ul);
+    });
+    // filling out next week notes dynamically---
+    nxtWeekNotes.forEach(function(notesObj){
+        let div = document.createElement('div');
+        div.addEventListener('click',function(){
+            notesOfTheDay(notesObj.date);
+            $('#weeklyNotesModal').modal('hide');
+         });
+        div.style.cursor='pointer';
+        let b = document.createElement('b');
+        let date = document.createTextNode(notesObj.date);
+        b.appendChild(date);
+        div.appendChild(b);
+        nxtWeek.appendChild(div);
+        let ul = document.createElement('ul');
+        notesObj.notes.forEach(function(noteElement){
+            let li = document.createElement('li');
+            let note = document.createTextNode(noteElement);
+            li.appendChild(note);
+            ul.appendChild(li);
+        });
+        nxtWeek.appendChild(ul);
+    });
 }
+getWeeklyNotes(new Date());
 
-// assigning arrays fetched by the function------
-let weeklyNotes = getWeeklyNotes(new Date());
-let currentWeekNotes = weeklyNotes[0], nxtWeekNotes = weeklyNotes[1];
-console.log(currentWeekNotes, nxtWeekNotes);
-let thisWeekNotes = document.getElementById('thisWeekNotes');
-let nxtWeek = document.getElementById('nxtWeekNotes');
-// filling out current week notes dynamically---
-currentWeekNotes.forEach(function(notesObj){
-    let div = document.createElement('div');
-    div.addEventListener('click',function(){
-       notesOfTheDay(notesObj.date);
-       $('#weeklyNotesModal').modal('hide');
-    });
-    div.style.cursor='pointer';
-    let b = document.createElement('b');
-    let date = document.createTextNode(notesObj.date);
-    b.appendChild(date);
-    div.appendChild(b);
-    thisWeekNotes.appendChild(div);
-    let ul = document.createElement('ul');
-    notesObj.notes.forEach(function(noteElement){
-        let li = document.createElement('li');
-        let note = document.createTextNode(noteElement);
-        li.appendChild(note);
-        ul.appendChild(li);
-    });
-    thisWeekNotes.appendChild(ul);
-});
-// filling out next week notes dynamically---
-nxtWeekNotes.forEach(function(notesObj){
-    let div = document.createElement('div');
-    div.addEventListener('click',function(){
-        notesOfTheDay(notesObj.date);
-        $('#weeklyNotesModal').modal('hide');
-     });
-    div.style.cursor='pointer';
-    let b = document.createElement('b');
-    let date = document.createTextNode(notesObj.date);
-    b.appendChild(date);
-    div.appendChild(b);
-    nxtWeek.appendChild(div);
-    let ul = document.createElement('ul');
-    notesObj.notes.forEach(function(noteElement){
-        let li = document.createElement('li');
-        let note = document.createTextNode(noteElement);
-        li.appendChild(note);
-        ul.appendChild(li);
-    });
-    nxtWeek.appendChild(ul);
-});
 function next() {
     currentYear = (currentMonth === 11) ? currentYear + 1 : currentYear;
     currentMonth = (currentMonth + 1) % 12;
@@ -250,6 +248,7 @@ document.getElementById('addNote').addEventListener('click',function(){
     notesOfTheDay(elementId);
     showCalendar(currentMonth, currentYear);
     document.getElementById('addNote').classList.add('fa-disabled');
+    getWeeklyNotes(new Date());
     tooltipInit();
 });
 
@@ -315,8 +314,50 @@ let deleteNote=(indexOfselectedItem,id,elementId)=>{
     tooltipInit();
 }
 
+// weekly tasks button-----------------------------
 document.getElementById('weeklyNotesBtn').addEventListener('click',function(){
     $('#addEvent').modal('hide');
     $('#weeklyNotesModal').modal('show');
 });
+// shortcuts butoon---------------------------------
+document.getElementById('shortcutsBtn').addEventListener('click',function(){
+    $('#weeklyNotesModal').modal('hide');
+    $('#addEvent').modal('hide');
+    $('#shortcutsModal').modal('show');
+});
 
+let modal = false;
+let shortcut = false;
+// keyboard handling--------------------------------
+document.onkeydown = function(e){
+    e = e || window.event;
+    var key = e.which || e.keyCode;
+    if(key===87){
+        
+        if( modal==false ) {
+            $('#addEvent').modal('hide');
+            $('#weeklyNotesModal').modal('show');  
+            modal = true;  
+        } else {
+            $('#weeklyNotesModal').modal('hide');
+            modal = false;
+        }
+    } else if (key==78){
+        next()
+    } else if (key==80){
+        previous()
+    } else if (key==76){
+        window.location.href='index.html';
+    } else if (key==83){
+        if ( shortcut == false ){
+            $('#weeklyNotesModal').modal('hide');
+            $('#addEvent').modal('hide');
+            $('#shortcutsModal').modal('show');
+            shortcut = true;
+        }   else {
+            $('#shortcutsModal').modal('hide');
+            shortcut = false;
+        }
+
+    }
+}
