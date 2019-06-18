@@ -190,13 +190,20 @@ function showCalendar(month, year) {
                 cell.setAttribute('onclick','notesOfTheDay(this.id)');
                 cell.classList.add('font-weight-bold','animated','fadeInDown');
                 let cellText = document.createTextNode(date);
-                if (new Date(new Date(year, month, date).toDateString()) < new Date(new Date().toDateString())){
+                let preDates = new Date(new Date(year, month, date).toDateString()) < new Date(new Date().toDateString());
+                if (preDates){
                     cell.style.color='#CFCFCF';
                     cell.classList.add('previousDates');
                 }
                 existedNotesId.forEach( function(item) {
                     if (date+'-'+month+'-'+year == item){
-                        cell.classList.add("purple-gradient","text-light");
+                        if (preDates){
+                            cell.classList.add("heavy-rain-gradient");
+                            cell.style.color="white";
+                        } else {
+                            cell.classList.add("purple-gradient","text-light");
+                        }
+                        
                         cell.setAttribute('data-toggle','tooltip');
                         cell.setAttribute('data-html','true');
                         for(let i=0;i<details.length;i++){
