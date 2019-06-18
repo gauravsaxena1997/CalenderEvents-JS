@@ -88,28 +88,70 @@ let getWeeklyNotes=(d)=>{
 let weeklyNotes = getWeeklyNotes(new Date());
 let currentWeekNotes = weeklyNotes[0], nxtWeekNotes = weeklyNotes[1];
 console.log(currentWeekNotes, nxtWeekNotes);
-
+let thisWeekNotes = document.getElementById('thisWeekNotes');
+let nxtWeek = document.getElementById('nxtWeekNotes');
+// filling out current week notes dynamically---
+currentWeekNotes.forEach(function(notesObj){
+    let div = document.createElement('div');
+    div.addEventListener('click',function(){
+       notesOfTheDay(notesObj.date);
+       $('#weeklyNotesModal').modal('hide');
+    });
+    div.style.cursor='pointer';
+    let b = document.createElement('b');
+    let date = document.createTextNode(notesObj.date);
+    b.appendChild(date);
+    div.appendChild(b);
+    thisWeekNotes.appendChild(div);
+    let ul = document.createElement('ul');
+    notesObj.notes.forEach(function(noteElement){
+        let li = document.createElement('li');
+        let note = document.createTextNode(noteElement);
+        li.appendChild(note);
+        ul.appendChild(li);
+    });
+    thisWeekNotes.appendChild(ul);
+});
+// filling out next week notes dynamically---
+nxtWeekNotes.forEach(function(notesObj){
+    let div = document.createElement('div');
+    div.addEventListener('click',function(){
+        notesOfTheDay(notesObj.date);
+        $('#weeklyNotesModal').modal('hide');
+     });
+    div.style.cursor='pointer';
+    let b = document.createElement('b');
+    let date = document.createTextNode(notesObj.date);
+    b.appendChild(date);
+    div.appendChild(b);
+    nxtWeek.appendChild(div);
+    let ul = document.createElement('ul');
+    notesObj.notes.forEach(function(noteElement){
+        let li = document.createElement('li');
+        let note = document.createTextNode(noteElement);
+        li.appendChild(note);
+        ul.appendChild(li);
+    });
+    nxtWeek.appendChild(ul);
+});
 function next() {
     currentYear = (currentMonth === 11) ? currentYear + 1 : currentYear;
     currentMonth = (currentMonth + 1) % 12;
     showCalendar(currentMonth, currentYear);
     tooltipInit();
 }
-
 function previous() {
     currentYear = (currentMonth === 0) ? currentYear - 1 : currentYear;
     currentMonth = (currentMonth === 0) ? 11 : currentMonth - 1;
     showCalendar(currentMonth, currentYear);
     tooltipInit();
 }
-
 function jump() {
     currentYear = parseInt(selectYear.value);
     currentMonth = parseInt(selectMonth.value);
     showCalendar(currentMonth, currentYear);
     tooltipInit();
 }
-
 function showCalendar(month, year) {
     let firstDay = (new Date(year, month)).getDay();
     let daysInMonth = 32 - new Date(year, month, 32).getDate();
@@ -273,4 +315,8 @@ let deleteNote=(indexOfselectedItem,id,elementId)=>{
     tooltipInit();
 }
 
+document.getElementById('weeklyNotesBtn').addEventListener('click',function(){
+    $('#addEvent').modal('hide');
+    $('#weeklyNotesModal').modal('show');
+});
 
