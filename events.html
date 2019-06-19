@@ -11,7 +11,7 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
-<body> 
+<body>
 <!-- Vedio Overlay -->
 <div class="video-overlay"></div>
 <video id="myVideo" autoplay muted loop>
@@ -19,94 +19,104 @@
 </video>
 <!-- End Video Overlay -->
 
-<nav class="navbar navbar-dark primary-color">
+<nav class="navbar navbar-expand-lg navbar-dark primary-color">
     <a class="navbar-brand" href="#">
       <img src="img/calendar.png" height="30" class="d-inline-block align-top"
         alt="calendar logo"> Calender Notes
     </a>
-
-    <ul class="navbar-nav ml-auto nav-flex-icons">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav"
+      aria-controls="basicExampleNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="basicExampleNav">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item" id="current">
+          <a class="nav-link waves-effect waves-light">
+            <span id="userName"></span>
+          </a>         
+      </li>
       <li class="nav-item" id="current">
-        <a class="nav-link waves-effect waves-light">
-          <span id="userName"></span>
-        </a>         
-     </li>
-     <li class="nav-item pl-3" id="current">
-        <a class="nav-link waves-effect waves-light" id="weeklyNotesBtn">
-            <i class="fas fa-tasks" ></i> Weekly Notes
-        </a>
-      </li>
-      <li class="nav-item pl-3" id="current">
-        <a class="nav-link waves-effect waves-light" id="shortcutsBtn">
-            <i class="far fa-keyboard" ></i> Shortcuts
-        </a>
-      </li>
-      <li class="nav-item pl-3" id="current">
-          <a class="nav-link waves-effect waves-light" href="./index.html">
-              <i class="fas fa-sign-out-alt" ></i> Log out
+          <a class="nav-link waves-effect waves-light" id="weeklyNotesBtn">
+              <i class="fas fa-tasks" ></i> Weekly Notes
           </a>
-      </li>
-    </ul>
+        </li>
+        <li class="nav-item" id="current">
+          <a class="nav-link waves-effect waves-light" id="shortcutsBtn">
+              <i class="far fa-keyboard" ></i> Shortcuts
+          </a>
+        </li>
+        <li class="nav-item" id="current">
+          <a class="nav-link waves-effect waves-light" id="shortcutsBtn">
+              <i class="fas fa-info" ></i> About
+          </a>
+        </li>
+        <li class="nav-item" id="current">
+            <a class="nav-link waves-effect waves-light" id="logoutBtn">
+                <i class="fas fa-sign-out-alt" ></i> Log out
+            </a>
+        </li>
+      </ul>
+    </div>
 </nav>
 
 
 <div class="container col-12 col-md-10 col-lg-8 mt-1">
-        <div class="card">
-            <h3 class="card-header blue-gradient text-light" id="monthAndYear"></h3>
-            <table class="table table-bordered table-responsive-sm" id="calendar">
-                <thead>
-                <tr>
-                    <th><b>Sun</b></th>
-                    <th><b>Mon</b></th>
-                    <th><b>Tue</b></th>
-                    <th><b>Wed</b></th>
-                    <th><b>Thu</b></th>
-                    <th><b>Fri</b></th>
-                    <th><b>Sat</b></th>
-                </tr>
-                </thead>
-    
-                <tbody id="calendar-body">
-                </tbody>
-            </table>
-            <div class="form-inline">
-                <button class="btn blue-gradient text-light col" id="previous" onclick="previous()">Previous</button>
-                <button class="btn blue-gradient text-light col" id="next" onclick="next()">Next</button>
-            </div>
-            <br/>
-            <form class="form-inline">
-                <label class="lead mr-2 ml-2" for="month">Jump To: </label>
-                <select class="form-control col-sm-4 browser-default custom-select" name="month" id="month" onchange="jump()">
-                    <option value=0>Jan</option>
-                    <option value=1>Feb</option>
-                    <option value=2>Mar</option>
-                    <option value=3>Apr</option>
-                    <option value=4>May</option>
-                    <option value=5>Jun</option>
-                    <option value=6>Jul</option>
-                    <option value=7>Aug</option>
-                    <option value=8>Sep</option>
-                    <option value=9>Oct</option>
-                    <option value=10>Nov</option>
-                    <option value=11>Dec</option>
-                </select>
-    
-                <label for="year"></label><select class="form-control col-sm-4 browser-default custom-select" name="year" id="year" onchange="jump()">
-                <option value=2019>2019</option>
-                <option value=2020>2020</option>
-                <option value=2021>2021</option>
-                <option value=2022>2022</option>
-                <option value=2023>2023</option>
-                <option value=2024>2024</option>
-                <option value=2025>2025</option>
-                <option value=2026>2026</option>
-                <option value=2027>2027</option>
-                <option value=2028>2028</option>
-                <option value=2029>2029</option>
-                <option value=2030>2030</option>
-            </select></form>
+    <div class="card">
+        <h3 class="card-header blue-gradient text-light" id="monthAndYear"></h3>
+        <table class="table table-bordered table-responsive-sm" id="calendar">
+            <thead>
+            <tr>
+                <th><b>Sun</b></th>
+                <th><b>Mon</b></th>
+                <th><b>Tue</b></th>
+                <th><b>Wed</b></th>
+                <th><b>Thu</b></th>
+                <th><b>Fri</b></th>
+                <th><b>Sat</b></th>
+            </tr>
+            </thead>
+
+            <tbody id="calendar-body">
+            </tbody>
+        </table>
+        <div class="form-inline">
+            <button class="btn blue-gradient text-light col" id="previous" onclick="previous()">Previous</button>
+            <button class="btn blue-gradient text-light col" id="next" onclick="next()">Next</button>
         </div>
+        <br/>
+        <form class="form-inline">
+            <label class="lead mr-2 ml-2" for="month">Jump To: </label>
+            <select class="form-control col-sm-4 browser-default custom-select" name="month" id="month" onchange="jump()">
+                <option value=0>Jan</option>
+                <option value=1>Feb</option>
+                <option value=2>Mar</option>
+                <option value=3>Apr</option>
+                <option value=4>May</option>
+                <option value=5>Jun</option>
+                <option value=6>Jul</option>
+                <option value=7>Aug</option>
+                <option value=8>Sep</option>
+                <option value=9>Oct</option>
+                <option value=10>Nov</option>
+                <option value=11>Dec</option>
+            </select>
+
+            <label for="year"></label><select class="form-control col-sm-4 browser-default custom-select" name="year" id="year" onchange="jump()">
+            <option value=2019>2019</option>
+            <option value=2020>2020</option>
+            <option value=2021>2021</option>
+            <option value=2022>2022</option>
+            <option value=2023>2023</option>
+            <option value=2024>2024</option>
+            <option value=2025>2025</option>
+            <option value=2026>2026</option>
+            <option value=2027>2027</option>
+            <option value=2028>2028</option>
+            <option value=2029>2029</option>
+            <option value=2030>2030</option>
+        </select></form>
     </div>
+</div>
 
 <!-- Modal for adding notes -->
 <div class="modal fade bottom" id="addEvent" tabindex="-1" role="dialog" aria-labelledby="exampleModalPreviewLabel" aria-hidden="true" data-backdrop='false'>
@@ -255,6 +265,23 @@
   </div>
 </div>
 <!-- End-->
+
+
+<!-- Modal for login first-->
+<div class="modal fade top" id="loginFirst" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true" data-backdrop="true">
+  <div class="modal-dialog modal-frame modal-top modal-notify modal-info" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="row d-flex justify-content-center align-items-center">
+          <h3 class="pt-3 pr-2">You must login first.</h3>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--End-->
+
 
 
 

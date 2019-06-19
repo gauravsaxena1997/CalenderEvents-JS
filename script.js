@@ -1,3 +1,7 @@
+if (localStorage.getItem('currentUser')){
+    window.location.href = './events.html';
+}
+
 // Declarations --------------------------------------------------
 var userList = JSON.parse(localStorage.getItem('users')) || [] ;
 var names = document.getElementById('signup-name');
@@ -135,7 +139,7 @@ signinPassword.addEventListener('keyup',function(){
             this.userDetails.name = user.name;
             this.userDetails.email = user.email;
             console.log('Credentials are matched.'+this.userDetails);
-            sessionStorage.setItem("userDetails", JSON.stringify(userDetails));  
+            localStorage.setItem("currentUser", JSON.stringify(userDetails));  
             window.location.href = 'events.html';
         }
     })
@@ -147,7 +151,7 @@ signinEmail.addEventListener('keyup',function(){
             this.userDetails.name = user.name;
             this.userDetails.email = user.email;
             console.log('Credentials are matched.'+this.userDetails);
-            sessionStorage.setItem("userDetails", JSON.stringify(userDetails));  
+            localStorage.setItem("currentUser", JSON.stringify(userDetails));  
             window.location.href = 'events.html';
         }
     })

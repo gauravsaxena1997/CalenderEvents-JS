@@ -1,3 +1,11 @@
+if (!localStorage.getItem('currentUser')){
+    $('#loginFirst').modal('show');
+    setTimeout(() => {
+    $('#loginFirst').modal('hide');        
+    window.location.href = './index.html';
+    }, 2000);
+}
+
 // localStorage.removeItem('notesCollection');
 // localStorage.removeItem('users');
 // for testing (getting user notes details)--
@@ -16,20 +24,20 @@ let tooltipInit = () => {
 }
 
 // user details from localstorage-----------
-var userDetails = JSON.parse(sessionStorage.getItem('userDetails'));
-document.getElementById('userName').innerHTML = 'Hello '+userDetails.name;
+var currentUser = JSON.parse(localStorage.getItem('currentUser'));
+document.getElementById('userName').innerHTML = 'Hello '+currentUser.name;
 
 // use notes details from localstorage------
 var notesCollection = JSON.parse(localStorage.getItem('notesCollection')) || [];
 var indexLocation = null, elementId =null, oldNotes =null, dateAndNotes = null;
 notesCollection.forEach(function(collection){
-    if ( userDetails.email === collection.email ){
+    if ( currentUser.email === collection.email ){
         indexLocation = notesCollection.indexOf(collection);
     }
 });
 if (indexLocation===null){
     var newUserNotes = {
-        email: userDetails.email,
+        email: currentUser.email,
         details: []
     }
     notesCollection.push(newUserNotes);
@@ -430,3 +438,10 @@ document.addEventListener ("keydown", function (zEvent) {
         }
     }
 } ); 
+
+
+// logout -------------------------------------------
+document.getElementById('logoutBtn').addEventListener('click',()=>{
+    localStorage.removeItem('currentUser');
+    window.location.href = './index.html'
+})
