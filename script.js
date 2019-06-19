@@ -164,29 +164,37 @@ function signin() {
     }
 }
 
+let visible = false;
+let visible2 = false;
 // password visibility toggle
 var visibilityToggle =document.getElementById('visibilityToggle1');
 var visibilityToggle2 =document.getElementById('visibilityToggle2');
-visibilityToggle.addEventListener('mousedown', ()=>{
-    signinPassword.type='text';
-    visibilityToggle.classList.remove('fa-eye');
-    visibilityToggle.classList.add('fa-eye-slash','text-primary');
+visibilityToggle.addEventListener('click', ()=>{
+    if (visible == false){
+        visible = true;
+        signinPassword.type='text';
+        visibilityToggle.classList.remove('fa-eye');
+        visibilityToggle.classList.add('fa-eye-slash','text-primary');
+    } else {
+        visible = false;
+        signinPassword.type='password';
+        visibilityToggle.classList.remove('fa-eye-slash');
+        visibilityToggle.classList.add('fa-eye');
+    }
+    
 });
-visibilityToggle.addEventListener('mouseup', ()=>{
-    signinPassword.type='password';
-    visibilityToggle.classList.remove('fa-eye-slash');
-    visibilityToggle.classList.add('fa-eye');
-});
-
-visibilityToggle2.addEventListener('mousedown', ()=>{
-    password.type='text';
-    visibilityToggle2.classList.remove('fa-eye');
-    visibilityToggle2.classList.add('fa-eye-slash','text-primary');
-});
-visibilityToggle2.addEventListener('mouseup', ()=>{
-    password.type='password';
-    visibilityToggle2.classList.remove('fa-eye-slash');
-    visibilityToggle2.classList.add('fa-eye');
+visibilityToggle2.addEventListener('click', ()=>{
+    if (visible2 == false){
+        visible2 = true;
+        password.type='text';
+        visibilityToggle2.classList.remove('fa-eye');
+        visibilityToggle2.classList.add('fa-eye-slash','text-primary');
+    } else {
+        visible2 = false;
+        password.type='password';
+        visibilityToggle2.classList.remove('fa-eye-slash');
+        visibilityToggle2.classList.add('fa-eye');
+    }
 });
 
 // signup button
