@@ -118,6 +118,13 @@ names.addEventListener('keyup',function(){
 // Store credentials ----------------------------------------------
 function storeCredentials(){
     let userList = JSON.parse(localStorage.getItem('users')) || [];
+    for (let i=0;i<userList.length;i++){
+        if (email.value == userList[i].email){
+            $('#modalRegisterForm').modal('hide');
+            $('#userExisted').modal('show');
+            return;
+        }
+    }
     var userObj = {
         name: names.value,
         email: email.value,
@@ -167,8 +174,8 @@ function signin() {
 let visible = false;
 let visible2 = false;
 // password visibility toggle
-var visibilityToggle =document.getElementById('visibilityToggle1');
-var visibilityToggle2 =document.getElementById('visibilityToggle2');
+var visibilityToggle = document.getElementById('visibilityToggle1');
+var visibilityToggle2 = document.getElementById('visibilityToggle2');
 visibilityToggle.addEventListener('click', ()=>{
     if (visible == false){
         visible = true;

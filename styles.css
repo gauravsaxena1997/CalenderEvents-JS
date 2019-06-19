@@ -58,7 +58,7 @@ body{
 tbody,thead{
     text-align: center;
 }
-tbody{
+td{
     cursor: pointer;
 }
 .fa-disabled {
