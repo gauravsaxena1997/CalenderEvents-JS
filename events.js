@@ -405,10 +405,13 @@ document.getElementById('shortcutsBtn').addEventListener('click',function(){
 // keyboard handling--------------------------------
 let modal = false;
 let shortcut = false;
+let about = false;
 document.addEventListener ("keydown", function (zEvent) {
     if (zEvent.altKey &&  zEvent.key === "w") {
         if( modal==false ) {
             $('#addEvent').modal('hide');
+            $('#aboutModal').modal('hide');
+            $('#shortcutsModal').modal('hide');
             $('#weeklyNotesModal').modal('show');  
             modal = true;  
         } else {
@@ -423,11 +426,26 @@ document.addEventListener ("keydown", function (zEvent) {
         if ( shortcut == false ){
             $('#weeklyNotesModal').modal('hide');
             $('#addEvent').modal('hide');
+            $('#aboutModal').modal('hide');
             $('#shortcutsModal').modal('show');
             shortcut = true;
         }   else {
             $('#shortcutsModal').modal('hide');
             shortcut = false;
+        }
+    } else if (zEvent.altKey &&  zEvent.key === "l") {
+        localStorage.removeItem('currentUser');
+        window.location.href = './index.html';
+    } else if (zEvent.altKey &&  zEvent.key === "a") {
+        if ( about == false ){
+            $('#weeklyNotesModal').modal('hide');
+            $('#addEvent').modal('hide');
+            $('#shortcutsModal').modal('hide');
+            $('#aboutModal').modal('show');
+            about = true;
+        }   else {
+            $('#aboutModal').modal('hide');
+            about = false;
         }
     }
 } ); 
@@ -436,7 +454,7 @@ document.addEventListener ("keydown", function (zEvent) {
 // logout -------------------------------------------
 document.getElementById('logoutBtn').addEventListener('click',()=>{
     localStorage.removeItem('currentUser');
-    window.location.href = './index.html'
+    window.location.href = './index.html';
 });
 
 document.getElementById('aboutBtn').addEventListener('click',()=>{
