@@ -1,11 +1,4 @@
-if (!localStorage.getItem('currentUser')){
-    $('#loginFirst').modal('show');
-    setTimeout(() => {
-    $('#loginFirst').modal('hide');        
-    window.location.href = './index.html';
-    }, 2000);
-}
-
+new WOW().init();
 // localStorage.removeItem('notesCollection');
 // localStorage.removeItem('users');
 // for testing (getting user notes details)--
@@ -444,4 +437,8 @@ document.addEventListener ("keydown", function (zEvent) {
 document.getElementById('logoutBtn').addEventListener('click',()=>{
     localStorage.removeItem('currentUser');
     window.location.href = './index.html'
-})
+});
+
+document.getElementById('aboutBtn').addEventListener('click',()=>{
+    $('#aboutModal').modal('show');
+});

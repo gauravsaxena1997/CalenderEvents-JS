@@ -1,7 +1,3 @@
-if (localStorage.getItem('currentUser')){
-    window.location.href = './events.html';
-}
-
 // Declarations --------------------------------------------------
 var userList = JSON.parse(localStorage.getItem('users')) || [] ;
 var names = document.getElementById('signup-name');

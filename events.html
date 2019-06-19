@@ -11,6 +11,11 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.2/css/mdb.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Nunito&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    <script>
+    if (!localStorage.getItem('currentUser')){
+    window.location.href = './index.html';
+    }
+    </script>
 </head>
 <body>
 <!-- Vedio Overlay -->
@@ -47,7 +52,7 @@
           </a>
         </li>
         <li class="nav-item" id="current">
-          <a class="nav-link waves-effect waves-light" id="shortcutsBtn">
+          <a class="nav-link waves-effect waves-light" id="aboutBtn">
               <i class="fas fa-info" ></i> About
           </a>
         </li>
@@ -246,7 +251,7 @@
 </div>
 <!-- End-->
 
-<!-- Modal for Add and and Update Success -->
+<!-- Modal for Delete Success -->
 <div class="modal fade right" id="delNoteSuccessModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
   aria-hidden="true">
   <div class="modal-dialog modal-notify modal-danger" role="document">
@@ -278,6 +283,100 @@
 </div>
 <!--End-->
 
+
+<!-- Modal for about-->
+<div class="modal fade" id="aboutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+  aria-hidden="true">
+  <div class="modal-dialog modal-fluid modal-dialog-centered modal-dialog-scrollable" role="document">
+    <div class="modal-content">
+      <div class="modal-body p-0 ">
+        <div class="jumbotron jumbotron-fluid aqua-gradient text-light text-center p-3">
+            <h3><b>Welcome to Calendar Notes!</b></h3> 
+        </div>
+        <div class="container-fluid">
+            <h4>
+              Calendar Notes is a web application where you can add notes day by day using a calendar itself.
+              You can update or delete the notes. Some of the basic functionalities of the application is mentioned below.
+            </h4><hr>
+            <h4>Calendar</h4><br>
+            <div class="row">
+              <div class="col-5 offset-1">
+                After the user is successfully logged in, a calendar is appeared. <br><br>
+                <span class="font-weight-bold">Previous:</span> Onclick the previous button the user can see the calendar of previous month.<br><br>
+                <span class="font-weight-bold">Next:</span> As above onclick the next button the user can see the calendar of next month.<br><br>
+                <span class="font-weight-bold">Jump To:</span> In jump to section the user can select any month and year using the selection section and
+                it will take to that particular month calendar.<br>
+              </div>
+              <div class="col-4 offset-1">
+                <div class="view overlay zoom animated fadeInUp">
+                  <img src="./screenshots/calendar.PNG" class="img-fluid img-thumbnail" alt="zoom">
+                  <div class="mask flex-center waves-effect waves-light">
+                    <p class="white-text">Calendar</p>
+                  </div>
+                </div>
+              </div>
+            </div><hr>
+            <h4>Adding notes</h4>
+            <div class="row">
+                <p class="col-10 offset-1">To add a note in the calendar just click the date you want to add the note. A modal is apprear where you can see the previously 
+                   added notes and also add a note and simply hit the add icon to add that note. </p>
+                <div class="col-10 offset-1">
+                    <img src="./screenshots/added-notes.PNG" class="img-fluid img-thumbnail hoverable">
+                </div> 
+            </div><hr>
+            <h4>Edit and delete notes</h4>
+            <div class="row">
+                <p class="col-10 offset-1">Buttons to edit and delete is right along with note itself. To perform these operation click the corresponding
+                  buttton. </p>
+                <div class="col-10 offset-1">
+                    <img src="./screenshots/edit.PNG" class="img-fluid img-thumbnail hoverable">
+                </div>
+            </div><hr>
+            <h4>Identify existed notes dates</h4>
+            <div class="row">
+                <p class="col-5 offset-1">
+                    <br><br><br>The user can easily identify the dates where notes are already existed. That dates are
+                  highlighted with a purple gradident background. The current date is also highlighted with blue gradident background. </p>
+                <div class="col-4 offset-1">
+                    <img src="./screenshots/calendar2.PNG" class="img-fluid img-thumbnail hoverable">
+                </div>
+            </div><hr>
+            <h4>Weekly notes</h4>
+            <div class="row">
+                <p class="col-10 offset-1">There is a seperate tab for weekly notes. To view the notes of current week and the next week 
+                  click on the weekly notes button on the navigation bar. </p>
+                <div class="col-10 offset-1">
+                    <img src="./screenshots/weekly-notes.PNG" class="img-fluid img-thumbnail hoverable">
+                </div>
+            </div><hr>
+            <h4>Success alerts</h4>
+            <div class="row">
+                <p class="col-10 offset-1">When a user add, edit or delete a note the success message is displayed on the screen. </p>
+            </div><hr>
+            <h4>Keyboard Shorcuts</h4>
+            <div class="row">
+                <p class="col-10 offset-1">
+                    You can perform the using the keyboard shortcuts. To open-up the shortcut panel press <i>alt+s</i> </p>
+                <div class="col-9 offset-3">
+                    <img src="./screenshots/shortcuts.PNG" class="img-fluid img-thumbnail hoverable">
+                </div>
+            </div><hr>
+            <h4>Disabled notes</h4>
+            <div class="row">
+                <p class="col-10 offset-1"> You can not perform any kind of operations on the notes if the date is already gone. </p>
+            </div><hr>
+
+
+
+
+        </div>
+      </div>
+      <div class="modal-footer p-0">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+    </div>
+  </div>
+</div>
 
 
 
