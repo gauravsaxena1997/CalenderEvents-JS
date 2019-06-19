@@ -1,33 +1,24 @@
-new WOW().init();
-// localStorage.removeItem('notesCollection');
-// localStorage.removeItem('users');
-// for testing (getting user notes details)--
-// Object.keys(localStorage).forEach(function(key){
-//     console.log(localStorage.getItem(key));
-//  });
-
 // Tooltips Initialization
-$(function () {
-    $('[data-toggle="tooltip"]').tooltip()
-});
 let tooltipInit = () => {
     $(function () {
         $('[data-toggle="tooltip"]').tooltip()
     });
 }
+tooltipInit();
 
-// user details from localstorage-----------
-var currentUser = JSON.parse(localStorage.getItem('currentUser'));
+// user details from localstorage---------------
+let currentUser = JSON.parse(localStorage.getItem('currentUser'));
 document.getElementById('userName').innerHTML = 'Hello '+currentUser.name;
-
-// use notes details from localstorage------
-var notesCollection = JSON.parse(localStorage.getItem('notesCollection')) || [];
-var indexLocation = null, elementId =null, oldNotes =null, dateAndNotes = null;
+// use notes details from localstorage----------
+let notesCollection = JSON.parse(localStorage.getItem('notesCollection')) || [];
+let indexLocation = null, elementId =null, oldNotes =null, dateAndNotes = null;
+// getting object from notesCollection of user---
 notesCollection.forEach(function(collection){
     if ( currentUser.email === collection.email ){
         indexLocation = notesCollection.indexOf(collection);
     }
 });
+// initialize object when user first login-------
 if (indexLocation===null){
     var newUserNotes = {
         email: currentUser.email,
@@ -38,9 +29,10 @@ if (indexLocation===null){
     notesCollection = JSON.parse(localStorage.getItem('notesCollection'));
     indexLocation = notesCollection.length-1;
 }
-var details = notesCollection[indexLocation].details;
-var note = document.getElementById('note');
+let details = notesCollection[indexLocation].details;
+let note = document.getElementById('note');
 
+// show calendar when user login-----------------
 let today = new Date();
 let currentMonth = today.getMonth();
 let currentYear = today.getFullYear();
@@ -50,7 +42,7 @@ let months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oc
 let monthAndYear = document.getElementById("monthAndYear");
 showCalendar(currentMonth, currentYear);
 
-// filling current and next week notes-------
+// getting weekly notes-------
 let getWeeklyNotes=(d)=>{
     d = new Date(d);
     let thisWeekNotes = document.getElementById('thisWeekNotes');
@@ -134,19 +126,19 @@ let getWeeklyNotes=(d)=>{
 getWeeklyNotes(new Date());
 
 // calendar operations--------------------------
-function next() {
+let next=()=>{
     currentYear = (currentMonth === 11) ? currentYear + 1 : currentYear;
     currentMonth = (currentMonth + 1) % 12;
     showCalendar(currentMonth, currentYear);
     tooltipInit();
 }
-function previous() {
+let previous=()=> {
     currentYear = (currentMonth === 0) ? currentYear - 1 : currentYear;
     currentMonth = (currentMonth === 0) ? 11 : currentMonth - 1;
     showCalendar(currentMonth, currentYear);
     tooltipInit();
 }
-function jump() {
+let jump=()=> {
     currentYear = parseInt(selectYear.value);
     currentMonth = parseInt(selectMonth.value);
     showCalendar(currentMonth, currentYear);
@@ -401,6 +393,10 @@ document.getElementById('shortcutsBtn').addEventListener('click',function(){
     $('#addEvent').modal('hide');
     $('#shortcutsModal').modal('show');
 });
+// about butoon---------------------------------
+document.getElementById('aboutBtn').addEventListener('click',()=>{
+    $('#aboutModal').modal('show');
+});
 
 // keyboard handling--------------------------------
 let modal = false;
@@ -450,13 +446,9 @@ document.addEventListener ("keydown", function (zEvent) {
     }
 } ); 
 
-
 // logout -------------------------------------------
 document.getElementById('logoutBtn').addEventListener('click',()=>{
     localStorage.removeItem('currentUser');
     window.location.href = './index.html';
 });
 
-document.getElementById('aboutBtn').addEventListener('click',()=>{
-    $('#aboutModal').modal('show');
-});

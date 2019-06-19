@@ -167,9 +167,9 @@ function signin() {
     }
 }
 
+// password visibility toggle
 let visible = false;
 let visible2 = false;
-// password visibility toggle
 var visibilityToggle = document.getElementById('visibilityToggle1');
 var visibilityToggle2 = document.getElementById('visibilityToggle2');
 visibilityToggle.addEventListener('click', ()=>{
