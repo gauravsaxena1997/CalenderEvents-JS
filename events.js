@@ -150,7 +150,7 @@ function showCalendar(month, year) {
     let tbl = document.getElementById("calendar-body"); // body of the calendar
     let existedNotesId = []
     for (let i=0;i<details.length;i++){
-        existedNotesId.push(details[i].date)
+        existedNotesId.push(details[i].date);
     }
 
     // clearing all previous cells
@@ -242,6 +242,7 @@ let notesOfTheDay=(id)=>{
             }
         }
         if(document.getElementById(elementId).classList.contains('previousDates') && !dateAndNotes ){
+            $('#addEvent').modal('hide');
             return;
         } else if(document.getElementById(elementId).classList.contains('previousDates')){
             document.getElementById('addNoteDiv').style.display = 'none';
